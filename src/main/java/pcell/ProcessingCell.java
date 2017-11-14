@@ -1,13 +1,13 @@
-package PCell;
+package pcell;
 
-import PCell.ANN.ANN;
-import PCell.ANN.ANNFactory;
-import PCell.ANN.GuavaANN;
-import PCell.Algorithm.Algorithm;
-import PCell.Algorithm.Base;
-import PCell.Algorithm.Operators.Differential;
-import PCell.ParameterController.Controller;
-import PCell.ParameterController.StaticController;
+import pcell.ann.ANN;
+import pcell.ann.ANNFactory;
+import pcell.ann.GuavaANN;
+import pcell.algorithm.Algorithm;
+import pcell.algorithm.Base;
+import pcell.algorithm.operators.Differential;
+import pcell.controller.Controller;
+import pcell.controller.StaticController;
 import utils.Data;
 
 public class ProcessingCell {

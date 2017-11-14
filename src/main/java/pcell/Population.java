@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PCell;
+package pcell;
 
 
-import PCell.ANN.ANN;
-import PCell.ANN.ANNFactory;
+import pcell.ann.ANN;
+import pcell.ann.ANNFactory;
 
 import java.util.LinkedList;
 import java.util.List;

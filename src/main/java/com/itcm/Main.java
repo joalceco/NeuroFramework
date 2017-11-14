@@ -1,6 +1,6 @@
 package com.itcm;
 
-import PCell.ProcessingCell;
+import pcell.ProcessingCell;
 import utils.Data;
 import utils.ProblemReader;
 

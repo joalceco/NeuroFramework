@@ -1,4 +1,4 @@
-package PCell.ANN;
+package pcell.ann;
 
 import cern.colt.list.tint.IntArrayList;
 import cern.colt.matrix.tdouble.DoubleMatrix1D;
@@ -7,11 +7,7 @@ import com.google.common.graph.*;
 import utils.Global;
 
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class GuavaANN extends ANN {
 
@@ -270,7 +266,7 @@ public class GuavaANN extends ANN {
 
     @Override
     public void changeConnection(int originID, int destinyID) {
-
+        addConnection(originID,destinyID);
     }
 
     @Override
@@ -307,7 +303,31 @@ public class GuavaANN extends ANN {
 
     @Override
     public int getNumberOfNeurons() {
-        return 0;
+        return topology.nodes().size();
+    }
+
+    @Override
+    public Object clone() {
+        GuavaANN ann = new GuavaANN();
+        ann.maxSize = this.maxSize;
+        for (Integer node:this.topology.nodes()) {
+            ann.topology.addNode(node);
+        }
+        for (Integer input:
+             ann.inputs) {
+            ann.inputs.add(input);
+        }
+        for (Integer output:
+                ann.outputs) {
+            ann.outputs.add(output);
+        }
+        for (EndpointPair<Integer> edge:this.topology.edges()){
+            Integer nodeU = edge.nodeU();
+            Integer nodeV = edge.nodeV();
+            Double value = this.topology.edgeValue(nodeU, nodeV).get();
+            ann.addConnection(nodeU,nodeV,value);
+        }
+        return ann;
     }
 
     @Override
@@ -325,4 +345,13 @@ public class GuavaANN extends ANN {
         return this;
     }
 
+    @Override
+    public Set<EndpointPair<Integer>> getEdges(){
+        return topology.edges();
+    }
+
+    @Override
+    public double weight(Integer source, Integer target) {
+        return topology.edgeValueOrDefault(source,target,0.0);
+    }
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="335.0" y="390.0">PCell.Population</node>
+    <node x="0.0" y="465.0">utils.Global</node>
+    <node x="0.0" y="80.0">PCell.Algorithm.Operators.OperatorDecorator</node>
+    <node x="322.5" y="0.0">PCell.ParameterController.Controller</node>
+    <node x="305.0" y="80.0">PCell.ParameterController.StaticController</node>
+    <node x="159.0" y="235.0">utils.ProblemReader</node>
+    <node x="132.0" y="465.0">com.itcm.Main</node>
+    <node x="255.0" y="465.0">utils.Data</node>
+    <node x="0.0" y="390.0">utils.RandomGen</node>
+    <node x="23.5" y="160.0">PCell.Algorithm.Operators.Differential</node>
+    <node x="19.0" y="235.0">PCell.ANN.ANN</node>
+    <node x="0.0" y="315.0">PCell.ANN.GuavaANN</node>
+    <node x="345.0" y="235.0">PCell.ProcessingCell</node>
+    <node x="182.0" y="80.0">PCell.Algorithm.Base</node>
+    <node x="169.0" y="390.0">PCell.ANN.ANNFactory</node>
+    <node x="96.5" y="0.0">PCell.Algorithm.Algorithm</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="PCell.Algorithm.Operators.OperatorDecorator" target="PCell.Algorithm.Algorithm">
+      <point x="0.0" y="-15.0" />
+      <point x="81.0" y="55.0" />
+      <point x="123.75" y="55.0" />
+      <point x="-27.25" y="15.0" />
+    </edge>
+    <edge source="PCell.ParameterController.StaticController" target="PCell.ParameterController.Controller">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="PCell.Algorithm.Operators.Differential" target="PCell.Algorithm.Operators.OperatorDecorator">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="PCell.Algorithm.Base" target="PCell.Algorithm.Algorithm">
+      <point x="0.0" y="-15.0" />
+      <point x="221.0" y="55.0" />
+      <point x="178.25" y="55.0" />
+      <point x="27.25" y="15.0" />
+    </edge>
+    <edge source="PCell.ANN.GuavaANN" target="PCell.ANN.ANN">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="433.5" y="281.5" />
+  <SelectedNodes>
+    <node>PCell.ProcessingCell</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
