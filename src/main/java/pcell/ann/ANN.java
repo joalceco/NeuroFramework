@@ -1,14 +1,16 @@
 package pcell.ann;
 
 import cern.colt.list.tint.IntArrayList;
-import cern.colt.matrix.tdouble.DoubleMatrix1D;
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import com.google.common.graph.EndpointPair;
+import utils.Data;
 
 import java.util.Set;
 
 
 public abstract class ANN {
+    double fitness;
+    public int bias_id = -1;
 
     public abstract void buildFromTemplate(ANN copy, boolean clone);
 
@@ -68,7 +70,7 @@ public abstract class ANN {
 
     public abstract DoubleMatrix2D getMatrixWeights();
 
-    public abstract DoubleMatrix1D epoch(DoubleMatrix2D x);
+    public abstract Data epoch(Data x);
 
     public abstract int getNumberOfNeurons();
 
@@ -79,4 +81,12 @@ public abstract class ANN {
     public abstract Set<EndpointPair<Integer>> getEdges();
 
     public abstract double weight(Integer source, Integer target);
+
+    public void setFitness(double fitness) {
+        this.fitness = fitness;
+    }
+
+    public double getFitness() {
+            return fitness;
+    }
 }

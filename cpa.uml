@@ -3,56 +3,48 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="335.0" y="390.0">PCell.Population</node>
-    <node x="0.0" y="465.0">utils.Global</node>
-    <node x="0.0" y="80.0">PCell.Algorithm.Operators.OperatorDecorator</node>
-    <node x="322.5" y="0.0">PCell.ParameterController.Controller</node>
-    <node x="305.0" y="80.0">PCell.ParameterController.StaticController</node>
-    <node x="159.0" y="235.0">utils.ProblemReader</node>
-    <node x="132.0" y="465.0">com.itcm.Main</node>
-    <node x="255.0" y="465.0">utils.Data</node>
-    <node x="0.0" y="390.0">utils.RandomGen</node>
-    <node x="23.5" y="160.0">PCell.Algorithm.Operators.Differential</node>
-    <node x="19.0" y="235.0">PCell.ANN.ANN</node>
-    <node x="0.0" y="315.0">PCell.ANN.GuavaANN</node>
-    <node x="345.0" y="235.0">PCell.ProcessingCell</node>
-    <node x="182.0" y="80.0">PCell.Algorithm.Base</node>
-    <node x="169.0" y="390.0">PCell.ANN.ANNFactory</node>
-    <node x="96.5" y="0.0">PCell.Algorithm.Algorithm</node>
+    <node x="1177.0" y="0.0">utils.Global</node>
+    <node x="0.0" y="806.0">pcell.ann.GuavaANN</node>
+    <node x="779.5" y="0.0">pcell.algorithm.Algorithm</node>
+    <node x="724.0" y="249.0">pcell.algorithm.operators.Differential</node>
+    <node x="701.0" y="1850.0">pcell.ann.ANNFactory</node>
+    <node x="1132.0" y="1850.0">utils.ProblemReader</node>
+    <node x="1837.0" y="1850.0">com.itcm.Main</node>
+    <node x="1517.0" y="1850.0">utils.Data</node>
+    <node x="0.0" y="1850.0">utils.RandomGen</node>
+    <node x="1499.0" y="0.0">pcell.Population</node>
+    <node x="424.0" y="257.0">pcell.controller.StaticController</node>
+    <node x="779.5" y="147.0">pcell.algorithm.operators.OperatorDecorator</node>
+    <node x="390.0" y="1850.0">pcell.ProcessingCell</node>
+    <node x="424.0" y="0.0">pcell.controller.Controller</node>
+    <node x="0.0" y="0.0">pcell.ann.ANN</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="PCell.Algorithm.Operators.OperatorDecorator" target="PCell.Algorithm.Algorithm">
-      <point x="0.0" y="-15.0" />
-      <point x="81.0" y="55.0" />
-      <point x="123.75" y="55.0" />
-      <point x="-27.25" y="15.0" />
+    <edge source="pcell.algorithm.operators.Differential" target="pcell.algorithm.operators.OperatorDecorator">
+      <point x="0.0" y="-92.5" />
+      <point x="0.0" y="26.0" />
     </edge>
-    <edge source="PCell.ParameterController.StaticController" target="PCell.ParameterController.Controller">
-      <point x="0.0" y="-15.0" />
-      <point x="0.0" y="15.0" />
+    <edge source="pcell.algorithm.operators.OperatorDecorator" target="pcell.algorithm.Algorithm">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="48.5" />
     </edge>
-    <edge source="PCell.Algorithm.Operators.Differential" target="PCell.Algorithm.Operators.OperatorDecorator">
-      <point x="0.0" y="-15.0" />
-      <point x="0.0" y="15.0" />
+    <edge source="pcell.ann.GuavaANN" target="pcell.ann.ANN">
+      <point x="0.0" y="-499.5" />
+      <point x="0.0" y="378.0" />
     </edge>
-    <edge source="PCell.Algorithm.Base" target="PCell.Algorithm.Algorithm">
-      <point x="0.0" y="-15.0" />
-      <point x="221.0" y="55.0" />
-      <point x="178.25" y="55.0" />
-      <point x="27.25" y="15.0" />
-    </edge>
-    <edge source="PCell.ANN.GuavaANN" target="PCell.ANN.ANN">
-      <point x="0.0" y="-15.0" />
-      <point x="0.0" y="15.0" />
+    <edge source="pcell.controller.StaticController" target="pcell.controller.Controller">
+      <point x="0.0" y="-92.0" />
+      <point x="0.0" y="103.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="433.5" y="281.5" />
-  <SelectedNodes>
-    <node>PCell.ProcessingCell</node>
-  </SelectedNodes>
-  <Categories />
+  <settings layout="Hierarchic Group" zoom="0.8" x="652.6666666666669" y="370.4444444444445" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Fields</Category>
+  </Categories>
   <SCOPE>All</SCOPE>
-  <VISIBILITY>public</VISIBILITY>
+  <VISIBILITY>private</VISIBILITY>
 </Diagram>
 

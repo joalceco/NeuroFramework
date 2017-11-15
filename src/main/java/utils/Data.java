@@ -1,8 +1,6 @@
 package utils;
 
-import cern.colt.matrix.tdouble.DoubleMatrix1D;
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
-import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
 
 import java.util.Map;
 
@@ -19,6 +17,11 @@ public class Data{
         this.headerMap = headerMap;
         this.data = data;
     }
+
+    public DoubleMatrix2D getRawMatrix() {
+        return data;
+    }
+
 
 //    public Data dropColumn(String header){
 //        int column = headerMap.get(header);

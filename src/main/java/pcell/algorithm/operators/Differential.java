@@ -35,7 +35,7 @@ public class Differential<T extends ANN> extends OperatorDecorator<T> {
     @Override
     public Population<T> apply(Population<T> pop) {
         pop = algorithm.apply(pop);
-        for (int i =0; i<pop.size();i++){
+        for (int i = 0; i<pop.size();i++){
             if(Global.r.nextDouble()<CROSSOVER_RATE){
             HashSet<Integer> parents = selectParents(pop);
             Iterator<Integer> it = parents.iterator();
@@ -45,41 +45,17 @@ public class Differential<T extends ANN> extends OperatorDecorator<T> {
             T b = pop.get(it.next().intValue());
             T c = pop.get(it.next().intValue());
             candidate = differential_crossover(candidate, a, b, c);
-
+            candidate.setFitness(algorithm.evaluator.evaluate(candidate));
+            if(candidate.getFitness() < original.getFitness()){
+                pop.remove(original);
+                pop.add(candidate);
+            }
+            //ELSE- candidate slowly perish while the rest of his friends get successful jobs y beautiful chicks,
+                // he was born alone and will die alone, nothing with his name on it other that his tombstone. RIPeperonis SO SAD :(
+            }
             }
 
-            //see if is better than original, if so replace
-//            if(fitnessFunction(original)<fitnessFunction(candidate)){
-//                population.remove(original)
-//                population.add(candidate)
-//            }
-
-//            T clone = (T) original.clone(true);
-//            DoubleMatrix2D weights = clone.getMatrixWeights();
-//
-//            int neuron = clone.selectRandomActiveOrInputNeuron();
-//            IntArrayList destinies = clone.getDestinies(neuron);
-//            DoubleMatrix2D aw = clone.getMatrixWeights().viewSelection(new int[]{neuron}, destinies.elements());
-//            DoubleMatrix2D bw = a.getMatrixWeights().viewSelection(new int[]{neuron}, destinies.elements());
-//            DoubleMatrix2D cw = b.getMatrixWeights().viewSelection(new int[]{neuron}, destinies.elements());
-//            DoubleMatrix2D dw = c.getMatrixWeights().viewSelection(new int[]{neuron}, destinies.elements());
-//            System.out.println();
-////            for (int j = 0; i < aw.size(); j++) {
-////                if ( Global.r.nextDouble() < CROSSOVER_RATE) {
-////                    clone.(
-//                            s3.getQuick(i) + WEIGTHING_FACTOR * (s1.getQuick(i) - s2.getQuick(i)));
-//                } else {
-//                    child.add(s0.getQuick(i));
-//                }
-//            }
-//            //see if is better than original, if so replace
-//            if(fitnessFunction(original)<fitnessFunction(candidate)){
-//                population.remove(original)
-//                population.add(candidate)
-            }
-//        }
-
-        return null;
+        return pop;
     }
 
     /**
