@@ -44,10 +44,15 @@ public class Differential<T extends ANN> extends OperatorDecorator<T> {
             T a = pop.get(it.next().intValue());
             T b = pop.get(it.next().intValue());
             T c = pop.get(it.next().intValue());
+//                System.out.println(a);
+//                System.out.println(b);
+//                System.out.println(c);
             candidate = differential_crossover(candidate, a, b, c);
-            candidate.setFitness(algorithm.evaluator.evaluate(candidate));
+            evaluate(candidate);
+//                System.out.println(candidate);
+//                System.out.println();
             if(candidate.getFitness() < original.getFitness()){
-                pop.remove(original);
+                pop.remove(original);// TODO: 17/11/17 Reemplazar no quitar
                 pop.add(candidate);
             }
             //ELSE- candidate slowly perish while the rest of his friends get successful jobs y beautiful chicks,
@@ -56,6 +61,12 @@ public class Differential<T extends ANN> extends OperatorDecorator<T> {
             }
 
         return pop;
+    }
+
+
+    @Override
+    public double evaluate(T ann) {
+        return algorithm.evaluate(ann);
     }
 
     /**

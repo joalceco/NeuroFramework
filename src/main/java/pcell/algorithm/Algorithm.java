@@ -15,4 +15,10 @@ public abstract class Algorithm<T extends ANN> {
 
     public abstract Population<T> apply(Population<T> pop);
 
+    public double evaluate(T ann){
+        double fitness = evaluator.evaluate(ann);
+        ann.setFitness(fitness);
+        return fitness;
+    }
+
 }

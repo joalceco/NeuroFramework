@@ -1,5 +1,5 @@
 {
-  "population_size": 10,
+  "population_size": 100,
   "cells_params_default": "{'algorithm':'differential'}",
   "mode": "training",
   "algorithm": "cellular",
@@ -16,7 +16,8 @@
   "testYPath": "/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/1-OriginalData/testY.csv",
   "outputPath": "/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/4-Analysis/tmp",
   "stagnation": "bias",
-  "max_epochs": 500,
+  "max_epochs": 100000,
+  "mutation_p": 0.1,
   "n_cells": 2,
   "min_weight": -20.0,
   "max_weight": 20.0,

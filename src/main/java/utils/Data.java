@@ -2,6 +2,7 @@ package utils;
 
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Data{
@@ -15,6 +16,16 @@ public class Data{
 
     public Data(Map<String, Integer> headerMap, DoubleMatrix2D data) {
         this.headerMap = headerMap;
+        this.data = data;
+    }
+
+    public Data(String autoLabel, DoubleMatrix2D data) {
+        Map<String, Integer> headerMap = new HashMap<>();
+        for (int column=0;column<data.columns();column++) {
+            headerMap.put(autoLabel+"_"+column,column);
+        }
+        this.headerMap = headerMap;
+
         this.data = data;
     }
 

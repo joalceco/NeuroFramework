@@ -3,31 +3,25 @@ package pcell.controller;
 import pcell.ann.ANN;
 import pcell.ann.GuavaANN;
 import pcell.Population;
+import utils.Log;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Controller {
 
-    public abstract void feed(Population population);
-
-    class Log{
-        int epoch;
-        double maxFitness;
-
-    }
+    public abstract void reportStatistics(Population<ANN> population);
 
     List<Log> history;
 
-    public Controller() {
-        history = new LinkedList<Log>();
+    public List<Log> getHistory() {
+        return history;
     }
 
-    public abstract double realParameter(String param);
+    public Controller() {
+        history = new LinkedList<>();
+    }
     public abstract int intParameter(String param);
-    public abstract String stringParameter(String param);
-    public abstract void addLog(int epoch, double fitness);
-    public abstract void nextCycle();
     public abstract boolean live();
 
 }

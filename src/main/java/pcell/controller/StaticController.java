@@ -3,17 +3,27 @@ package pcell.controller;
 import pcell.ann.ANN;
 import pcell.Population;
 import utils.Global;
+import utils.Log;
 
 public class StaticController extends Controller {
 
-    @Override
-    public void feed(Population population) {
-
-    }
+    int generation = 0;
 
     @Override
-    public double realParameter(String param) {
-        return Global.getDoubleParam(param);
+    public void reportStatistics(Population<ANN> population) {
+        for (int i = 0; i < population.size(); i++) {
+            ANN ann= population.get(i);
+            Log log = new Log(
+                    ann.getID(),
+                    generation,
+                    Global.evaluations,
+                    ann.getFitness(),
+                    i,
+                    ann.getNumberOfNeurons(),
+                    ann.toDot());
+            history.add(log);
+        }
+        generation++;
     }
 
     @Override
@@ -22,22 +32,7 @@ public class StaticController extends Controller {
     }
 
     @Override
-    public String stringParameter(String param) {
-        return null;
-    }
-
-    @Override
-    public void addLog(int epoch, double fitness) {
-
-    }
-
-    @Override
-    public void nextCycle() {
-
-    }
-
-    @Override
     public boolean live() {
-        return Global.evaluations<Global.maxEvaluations;
+        return Global.evaluations<Global.getMaxEvaluations();
     }
 }

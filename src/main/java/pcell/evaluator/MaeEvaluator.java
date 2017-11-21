@@ -3,11 +3,13 @@ package pcell.evaluator;
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import pcell.ann.ANN;
 import utils.Data;
+import utils.Global;
 
 public class MaeEvaluator extends Evaluator{
 
     @Override
     public double evaluate(ANN ann) {
+        Global.evaluations++;
         Data y_predicted = ann.epoch(X);
         return computeError(Y,y_predicted);
     }

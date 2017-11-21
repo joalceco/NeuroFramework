@@ -65,8 +65,8 @@ public class RandomGen extends DoubleMersenneTwister {
     }
 
     public double nextWeight() {
-        Double min = (Double) Global.getDoubleParam("min_weight");
-        Double max = (Double) Global.getDoubleParam("max_weight");
+        Double min = (Double) Global.paramD("min_weight");
+        Double max = (Double) Global.paramD("max_weight");
         return nextDouble(min, max);
     }
 }

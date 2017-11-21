@@ -11,6 +11,6 @@ public abstract class Evaluator {
 
     public void prepareData(Data x, Data y) {
         this.X=x;
-        this.Y=Y;
+        this.Y=y;
     }
 }

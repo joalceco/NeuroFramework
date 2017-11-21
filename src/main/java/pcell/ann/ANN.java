@@ -8,9 +8,15 @@ import utils.Data;
 import java.util.Set;
 
 
-public abstract class ANN {
+public abstract class ANN implements Comparable<ANN>{
     double fitness;
     public int bias_id = -1;
+    static int global_id=-1;
+    int id;
+
+    public void setId() {
+        this.id = global_id++;
+    }
 
     public abstract void buildFromTemplate(ANN copy, boolean clone);
 
@@ -88,5 +94,14 @@ public abstract class ANN {
 
     public double getFitness() {
             return fitness;
+    }
+
+    @Override
+    public int compareTo(ANN o) {
+        return (fitness<o.fitness)?-1:1;
+    }
+
+    public int getID() {
+        return id;
     }
 }

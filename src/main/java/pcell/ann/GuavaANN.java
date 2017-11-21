@@ -7,6 +7,7 @@ import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix1D;
 import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
 import com.google.common.graph.*;
 import utils.Data;
+import utils.Functions;
 import utils.Global;
 
 
@@ -14,16 +15,18 @@ import java.util.*;
 
 public class GuavaANN extends ANN {
 
+
     MutableValueGraph<Integer, Double> topology;
-    ArrayList<Integer> inputs;
-    ArrayList<Integer> outputs;
+    TreeSet<Integer> inputs;
+    TreeSet<Integer> outputs;
     int maxSize;
 
 
     private GuavaANN() {
+        setId();
         this.topology = ValueGraphBuilder.directed().allowsSelfLoops(false).build();
-        inputs = new ArrayList<>();
-        outputs = new ArrayList<>();
+        inputs = new TreeSet<>();
+        outputs = new TreeSet<>();
     }
 
 //    private GuavaANN(MutableValueGraph<Integer, Double> topology) {
@@ -284,7 +287,8 @@ public class GuavaANN extends ANN {
             stringBuilder.append(edge.target());
             stringBuilder.append(System.lineSeparator());
         }
-        return "GuavaANN {" +
+        return "GuavaANN {" + System.lineSeparator() +
+                "fitness=" + String.format("%.3f",fitness) + System.lineSeparator() +
                 "edges=" + stringBuilder.toString() +
                 ", inputs=" + inputs +
                 ", outputs=" + outputs +
@@ -305,7 +309,6 @@ public class GuavaANN extends ANN {
         TreeSet<Integer> nodes = new TreeSet(topology.nodes());
         nodes.remove(bias_id);
         nodes.removeAll(inputs);
-        nodes.removeAll(outputs);
         HashMap<Integer,DoubleMatrix1D> energy = new HashMap<>();
         //prepare bias
         energy.put(this.bias_id,new DenseDoubleMatrix1D(nElements).assign(1));
@@ -313,11 +316,24 @@ public class GuavaANN extends ANN {
         inputs.forEach(input_id -> energy.put(input_id, input.viewColumn(input_id)));
         //execute neurons
         for (int hidden_node_id: nodes) {
+            DoubleMatrix1D output_energy = new DenseDoubleMatrix1D(nElements);
             Set<Integer> predecessors = topology.predecessors(hidden_node_id);
-            System.out.println(predecessors);
+            for (int predecessor:predecessors) {
+                double weight=topology.edgeValue(predecessor,hidden_node_id).get();
+                DoubleMatrix1D in_energy = energy.get(predecessor).copy();
+                output_energy.assign(in_energy,(out, in) -> out+weight*in);
+            }
+            if (!outputs.contains(hidden_node_id)){
+                output_energy.assign(element -> Functions.sigmoid(element));
+            }
+            energy.put(hidden_node_id,output_energy);
         }
-
-        return null;
+        DoubleMatrix2D output_energy=new DenseDoubleMatrix2D(nElements,outputs.size());
+        int mat_index=0;
+        for (int out :outputs) {
+            output_energy.viewColumn(mat_index++).assign(energy.get(out));
+        }
+        return new Data("output",output_energy);
     }
 
 

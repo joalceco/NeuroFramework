@@ -3,46 +3,292 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="1177.0" y="0.0">utils.Global</node>
-    <node x="0.0" y="806.0">pcell.ann.GuavaANN</node>
-    <node x="779.5" y="0.0">pcell.algorithm.Algorithm</node>
-    <node x="724.0" y="249.0">pcell.algorithm.operators.Differential</node>
-    <node x="701.0" y="1850.0">pcell.ann.ANNFactory</node>
-    <node x="1132.0" y="1850.0">utils.ProblemReader</node>
-    <node x="1837.0" y="1850.0">com.itcm.Main</node>
-    <node x="1517.0" y="1850.0">utils.Data</node>
-    <node x="0.0" y="1850.0">utils.RandomGen</node>
-    <node x="1499.0" y="0.0">pcell.Population</node>
-    <node x="424.0" y="257.0">pcell.controller.StaticController</node>
-    <node x="779.5" y="147.0">pcell.algorithm.operators.OperatorDecorator</node>
-    <node x="390.0" y="1850.0">pcell.ProcessingCell</node>
-    <node x="424.0" y="0.0">pcell.controller.Controller</node>
-    <node x="0.0" y="0.0">pcell.ann.ANN</node>
+    <node x="1116.5526180387415" y="639.0">utils.Global</node>
+    <node x="668.3437500000002" y="1470.0">pcell.ann.GuavaANN</node>
+    <node x="1979.6062500000003" y="795.0">pcell.algorithm.Algorithm</node>
+    <node x="1748.7160310734464" y="2629.0">pcell.algorithm.operators.Differential</node>
+    <node x="751.5526180387416" y="2653.0">pcell.ann.ANNFactory</node>
+    <node x="0.0" y="1938.5">utils.ProblemReader</node>
+    <node x="388.05261803874157" y="3233.0">com.itcm.Main</node>
+    <node x="218.61603107344627" y="60.0">utils.Data</node>
+    <node x="1079.5526180387415" y="12.5">utils.RandomGen</node>
+    <node x="1896.9296912832936" y="0.0">pcell.Population</node>
+    <node x="1633.4187500000003" y="1986.5">pcell.algorithm.operators.OperatorDecorator</node>
+    <node x="1287.7654055690077" y="2665.0">pcell.controller.StaticController</node>
+    <node x="1188.3526180387414" y="2910.0">pcell.ProcessingCell</node>
+    <node x="1127.0437500000003" y="1950.0">pcell.controller.Controller</node>
+    <node x="438.35978107344636" y="339.0">pcell.ann.ANN</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="utils.Global" target="utils.RandomGen">
+      <point x="0.0" y="-220.5" />
+      <point x="0.0" y="112.0" />
+    </edge>
     <edge source="pcell.algorithm.operators.Differential" target="pcell.algorithm.operators.OperatorDecorator">
-      <point x="0.0" y="-92.5" />
-      <point x="0.0" y="26.0" />
+      <point x="-89.19999999999993" y="-100.5" />
+      <point x="1882.5160310734464" y="2589.0" />
+      <point x="1793.9187500000003" y="2589.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="pcell.ann.ANNFactory" target="pcell.ann.GuavaANN">
+      <point x="-36.25" y="-76.5" />
+      <point x="932.8026180387416" y="2609.0" />
+      <point x="881.8437500000002" y="2609.0" />
+      <point x="0.0" y="544.5" />
+    </edge>
+    <edge source="pcell.algorithm.Algorithm" target="pcell.Population">
+      <point x="0.0" y="-64.5" />
+      <point x="2140.1062500000003" y="319.0" />
+      <point x="2076.2868341404364" y="319.0" />
+      <point x="39.85714285714289" y="124.5" />
+    </edge>
+    <edge source="pcell.controller.Controller" target="pcell.ann.ANN">
+      <point x="-86.25" y="-64.5" />
+      <point x="1213.2937500000003" y="1400.0" />
+      <point x="838.6722810734464" y="1400.0" />
+      <point x="186.8125" y="520.5" />
+    </edge>
+    <edge source="com.itcm.Main" target="pcell.ProcessingCell">
+      <point x="75.0" y="-28.0" />
+      <point x="563.0526180387416" y="3213.0" />
+      <point x="1411.8526180387414" y="3213.0" />
+      <point x="0.0" y="136.5" />
+    </edge>
+    <edge source="pcell.algorithm.operators.Differential" target="pcell.algorithm.Algorithm">
+      <point x="89.20000000000005" y="-100.5" />
+      <point x="2060.9160310734464" y="2599.0" />
+      <point x="2154.465405569008" y="2599.0" />
+      <point x="2154.465405569008" y="1450.0" />
+      <point x="2099.9812500000003" y="1450.0" />
+      <point x="-40.125" y="64.5" />
+    </edge>
+    <edge source="pcell.controller.StaticController" target="pcell.Population">
+      <point x="129.375" y="-64.5" />
+      <point x="1589.6404055690077" y="2609.0" />
+      <point x="1622.9187500000003" y="2609.0" />
+      <point x="1622.9187500000003" y="299.0" />
+      <point x="1956.7154055690078" y="299.0" />
+      <point x="-79.71428571428578" y="124.5" />
+    </edge>
+    <edge source="pcell.algorithm.operators.Differential" target="utils.Global">
+      <point x="-178.39999999999986" y="-100.5" />
+      <point x="1793.3160310734465" y="2599.0" />
+      <point x="1611.9187500000003" y="2599.0" />
+      <point x="1611.9187500000003" y="1430.0" />
+      <point x="1385.6526180387414" y="1430.0" />
+      <point x="119.59999999999991" y="220.5" />
+    </edge>
+    <edge source="com.itcm.Main" target="pcell.ann.ANN">
+      <point x="25.0" y="-28.0" />
+      <point x="513.0526180387416" y="3213.0" />
+      <point x="517.6463680387416" y="3213.0" />
+      <point x="517.6463680387416" y="1420.0" />
+      <point x="465.04728107344636" y="1420.0" />
+      <point x="-186.8125" y="520.5" />
+    </edge>
+    <edge source="com.itcm.Main" target="utils.Data">
+      <point x="-25.0" y="-28.0" />
+      <point x="463.05261803874157" y="3203.0" />
+      <point x="398.5000000000002" y="3203.0" />
+      <point x="398.5000000000002" y="319.0" />
+      <point x="311.42853107344627" y="319.0" />
+      <point x="-55.6875" y="64.5" />
+    </edge>
+    <edge source="pcell.ProcessingCell" target="pcell.algorithm.Algorithm">
+      <point x="111.75" y="-136.5" />
+      <point x="1523.6026180387414" y="2870.0" />
+      <point x="2251.3562500000003" y="2870.0" />
+      <point x="2251.3562500000003" y="1450.0" />
+      <point x="2260.4812500000003" y="1450.0" />
+      <point x="120.37500000000011" y="64.5" />
+    </edge>
+    <edge source="pcell.ann.ANN" target="utils.Data">
+      <point x="0.0" y="-520.5" />
+      <point x="651.8597810734464" y="289.0" />
+      <point x="422.80353107344627" y="289.0" />
+      <point x="55.6875" y="64.5" />
+    </edge>
+    <edge source="pcell.ann.ANNFactory" target="pcell.ann.ANN">
+      <point x="-108.75" y="-76.5" />
+      <point x="860.3026180387416" y="2599.0" />
+      <point x="561.6097810734464" y="2599.0" />
+      <point x="561.6097810734464" y="1410.0" />
+      <point x="625.1722810734464" y="1410.0" />
+      <point x="-26.6875" y="520.5" />
     </edge>
     <edge source="pcell.algorithm.operators.OperatorDecorator" target="pcell.algorithm.Algorithm">
-      <point x="0.0" y="-26.0" />
-      <point x="0.0" y="48.5" />
+      <point x="80.25" y="-28.0" />
+      <point x="1874.1687500000003" y="1450.0" />
+      <point x="2019.7312500000003" y="1450.0" />
+      <point x="-120.375" y="64.5" />
     </edge>
-    <edge source="pcell.ann.GuavaANN" target="pcell.ann.ANN">
-      <point x="0.0" y="-499.5" />
-      <point x="0.0" y="378.0" />
+    <edge source="pcell.controller.StaticController" target="utils.Global">
+      <point x="43.125" y="-64.5" />
+      <point x="1503.3904055690077" y="2599.0" />
+      <point x="1600.9187500000003" y="2599.0" />
+      <point x="1600.9187500000003" y="1440.0" />
+      <point x="1325.8526180387416" y="1440.0" />
+      <point x="59.799999999999955" y="220.5" />
+    </edge>
+    <edge source="pcell.ProcessingCell" target="pcell.Population">
+      <point x="156.45000000000005" y="-136.5" />
+      <point x="1568.3026180387415" y="2880.0" />
+      <point x="2311.1062500000003" y="2880.0" />
+      <point x="2311.1062500000003" y="309.0" />
+      <point x="2116.1439769975796" y="309.0" />
+      <point x="79.71428571428578" y="124.5" />
+    </edge>
+    <edge source="pcell.ann.ANNFactory" target="pcell.controller.Controller">
+      <point x="108.75" y="-76.5" />
+      <point x="1077.8026180387415" y="2599.0" />
+      <point x="1170.1687500000003" y="2599.0" />
+      <point x="-129.375" y="64.5" />
+    </edge>
+    <edge source="pcell.ann.GuavaANN" target="utils.Data">
+      <point x="0.0" y="-544.5" />
+      <point x="881.8437500000002" y="1410.0" />
+      <point x="1036.0213680387415" y="1410.0" />
+      <point x="1036.0213680387415" y="279.0" />
+      <point x="459.92853107344627" y="279.0" />
+      <point x="92.8125" y="64.5" />
+    </edge>
+    <edge source="pcell.ann.ANNFactory" target="utils.Global">
+      <point x="36.25" y="-76.5" />
+      <point x="1005.3026180387416" y="2589.0" />
+      <point x="1116.5437500000003" y="2589.0" />
+      <point x="1116.5437500000003" y="1450.0" />
+      <point x="1266.0526180387415" y="1450.0" />
+      <point x="0.0" y="220.5" />
+    </edge>
+    <edge source="pcell.ProcessingCell" target="pcell.ann.ANNFactory">
+      <point x="-67.04999999999995" y="-136.5" />
+      <point x="1344.8026180387415" y="2860.0" />
+      <point x="969.0526180387416" y="2860.0" />
+      <point x="0.0" y="76.5" />
+    </edge>
+    <edge source="pcell.algorithm.operators.Differential" target="pcell.Population">
+      <point x="0.0" y="-100.5" />
+      <point x="1971.7160310734464" y="2609.0" />
+      <point x="1969.1062500000003" y="2609.0" />
+      <point x="1969.1062500000003" y="319.0" />
+      <point x="2036.4296912832936" y="319.0" />
+      <point x="0.0" y="124.5" />
+    </edge>
+    <edge source="pcell.ann.GuavaANN" target="utils.Global">
+      <point x="170.8" y="-544.5" />
+      <point x="1052.6437500000002" y="1440.0" />
+      <point x="1206.2526180387417" y="1440.0" />
+      <point x="-59.799999999999955" y="220.5" />
+    </edge>
+    <edge source="pcell.ProcessingCell" target="pcell.ann.ANN">
+      <point x="-156.44999999999993" y="-136.5" />
+      <point x="1255.4026180387416" y="2880.0" />
+      <point x="528.6463680387416" y="2880.0" />
+      <point x="528.6463680387416" y="1410.0" />
+      <point x="518.4222810734464" y="1410.0" />
+      <point x="-133.4375" y="520.5" />
+    </edge>
+    <edge source="pcell.ProcessingCell" target="utils.Data">
+      <point x="-201.14999999999992" y="-136.5" />
+      <point x="1210.7026180387415" y="2890.0" />
+      <point x="409.5000000000002" y="2890.0" />
+      <point x="409.5000000000002" y="309.0" />
+      <point x="348.55353107344627" y="309.0" />
+      <point x="-18.5625" y="64.5" />
+    </edge>
+    <edge source="utils.ProblemReader" target="utils.Data">
+      <point x="0.0" y="-76.0" />
+      <point x="194.0000000000001" y="319.0" />
+      <point x="274.30353107344627" y="319.0" />
+      <point x="-92.8125" y="64.5" />
+    </edge>
+    <edge source="pcell.ProcessingCell" target="pcell.controller.Controller">
+      <point x="-22.34999999999991" y="-136.5" />
+      <point x="1389.5026180387415" y="2850.0" />
+      <point x="1264.0904055690078" y="2850.0" />
+      <point x="1264.0904055690078" y="2609.0" />
+      <point x="1342.6687500000003" y="2609.0" />
+      <point x="43.125" y="64.5" />
+    </edge>
+    <edge source="com.itcm.Main" target="utils.ProblemReader">
+      <point x="-75.0" y="-28.0" />
+      <point x="413.05261803874157" y="3213.0" />
+      <point x="194.0000000000001" y="3213.0" />
+      <point x="0.0" y="76.0" />
+    </edge>
+    <edge source="utils.ProblemReader" target="utils.Global">
+      <point x="129.33333333333326" y="-76.0" />
+      <point x="323.33333333333326" y="1430.0" />
+      <point x="1146.4526180387415" y="1430.0" />
+      <point x="-119.59999999999991" y="220.5" />
+    </edge>
+    <edge source="pcell.algorithm.operators.OperatorDecorator" target="pcell.Population">
+      <point x="-80.25" y="-28.0" />
+      <point x="1713.6687500000003" y="309.0" />
+      <point x="1996.5725484261507" y="309.0" />
+      <point x="-39.85714285714289" y="124.5" />
     </edge>
     <edge source="pcell.controller.StaticController" target="pcell.controller.Controller">
-      <point x="0.0" y="-92.0" />
-      <point x="0.0" y="103.5" />
+      <point x="-43.125" y="-64.5" />
+      <point x="1417.1404055690077" y="2609.0" />
+      <point x="1428.9187500000003" y="2609.0" />
+      <point x="129.375" y="64.5" />
+    </edge>
+    <edge source="pcell.controller.StaticController" target="pcell.ann.ANN">
+      <point x="-129.375" y="-64.5" />
+      <point x="1330.8904055690077" y="2579.0" />
+      <point x="586.4375000000002" y="2579.0" />
+      <point x="586.4375000000002" y="1420.0" />
+      <point x="678.5472810734464" y="1420.0" />
+      <point x="26.6875" y="520.5" />
+    </edge>
+    <edge source="pcell.ann.GuavaANN" target="pcell.ann.ANN">
+      <point x="-85.39999999999998" y="-544.5" />
+      <point x="796.4437500000001" y="1420.0" />
+      <point x="785.2972810734464" y="1420.0" />
+      <point x="133.4375" y="520.5" />
+    </edge>
+    <edge source="pcell.ProcessingCell" target="pcell.controller.StaticController">
+      <point x="22.350000000000023" y="-136.5" />
+      <point x="1434.2026180387415" y="2890.0" />
+      <point x="1460.2654055690077" y="2890.0" />
+      <point x="0.0" y="64.5" />
+    </edge>
+    <edge source="pcell.ann.ANNFactory" target="utils.Data">
+      <point x="-181.25" y="-76.5" />
+      <point x="787.8026180387416" y="2609.0" />
+      <point x="420.5000000000002" y="2609.0" />
+      <point x="420.5000000000002" y="299.0" />
+      <point x="385.67853107344627" y="299.0" />
+      <point x="18.5625" y="64.5" />
+    </edge>
+    <edge source="pcell.ProcessingCell" target="pcell.algorithm.operators.Differential">
+      <point x="67.05000000000007" y="-136.5" />
+      <point x="1478.9026180387416" y="2860.0" />
+      <point x="1971.7160310734464" y="2860.0" />
+      <point x="0.0" y="100.5" />
+    </edge>
+    <edge source="pcell.controller.Controller" target="pcell.Population">
+      <point x="86.25" y="-64.5" />
+      <point x="1385.7937500000003" y="1450.0" />
+      <point x="1480.6776180387415" y="1450.0" />
+      <point x="1480.6776180387415" y="289.0" />
+      <point x="1916.858262711865" y="289.0" />
+      <point x="-119.57142857142844" y="124.5" />
+    </edge>
+    <edge source="utils.RandomGen" target="utils.Global">
+      <point x="124.33333333333331" y="112.0" />
+      <point x="1390.385951372075" y="319.0" />
+      <point x="1365.7192847054084" y="319.0" />
+      <point x="99.66666666666674" y="-220.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.8" x="652.6666666666669" y="370.4444444444445" />
+  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="863.0" y="387.0" />
   <SelectedNodes />
   <Categories>
-    <Category>Methods</Category>
     <Category>Fields</Category>
+    <Category>Methods</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>

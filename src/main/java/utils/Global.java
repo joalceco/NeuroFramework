@@ -32,6 +32,12 @@ public class Global {
         return params;
     }
 
+    public static int getMaxEvaluations() {
+        if(params.containsKey("max_epochs"))
+            return getIntegerParam("max_epochs");
+        return maxEvaluations;
+    }
+
     public static String getANNType(){
         return (String)params.get("ann_type");
     }
@@ -52,7 +58,7 @@ public class Global {
         return 0;
     }
 
-    public static Double getDoubleParam(String key){
+    public static Double paramD(String key){
         paramsNotNull();
         if(params.containsKey(key)){
             return (Double) params.get(key);
