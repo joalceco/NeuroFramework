@@ -6,8 +6,7 @@
 package pcell;
 
 
-import pcell.ann.ANN;
-import pcell.ann.ANNFactory;
+import pcell.model.ANN;
 
 import java.util.LinkedList;
 import java.util.List;

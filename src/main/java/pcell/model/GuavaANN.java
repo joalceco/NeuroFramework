@@ -1,4 +1,4 @@
-package pcell.ann;
+package pcell.model;
 
 import cern.colt.list.tint.IntArrayList;
 import cern.colt.matrix.tdouble.DoubleMatrix1D;
@@ -49,9 +49,23 @@ public class GuavaANN extends ANN {
 
 
     public static GuavaANN buildANN(GuavaANN copy) {
-        GuavaANN newCopy = new GuavaANN();
-        // TODO: 8/11/17 copiar neuronas activas
-        return null;
+        GuavaANN ann = new GuavaANN();
+        ann.maxSize = copy.maxSize;
+//        for (Integer node : copy.topology.nodes()) {
+//            ann.topology.addNode(node);
+//        }
+        for (Integer input :
+                copy.inputs) {
+            ann.inputs.add(input);
+            ann.topology.addNode(input);
+        }
+        for (Integer output :
+                copy.outputs) {
+            ann.outputs.add(output);
+            ann.topology.addNode(output);
+        }
+        ann.topology.addNode(copy.bias_id);
+        return ann;
     }
 
 
@@ -250,6 +264,11 @@ public class GuavaANN extends ANN {
     }
 
     @Override
+    public Set<Integer> getDestiniesSet(int neuronID) {
+        return topology.successors(neuronID);
+    }
+
+    @Override
     public void setBias(int id, double bias) {
 
     }
@@ -367,6 +386,24 @@ public class GuavaANN extends ANN {
     }
 
     @Override
+    public ANN cloneEmpty(){
+        GuavaANN ann = new GuavaANN();
+        ann.maxSize = this.maxSize;
+        for (Integer input :
+                this.inputs) {
+            ann.inputs.add(input);
+            ann.topology.addNode(input);
+        }
+        for (Integer output :
+                this.outputs) {
+            ann.outputs.add(output);
+            ann.topology.addNode(output);
+        }
+        ann.topology.addNode(this.bias_id);
+        return ann;
+    }
+
+    @Override
     public ANN buildRandomANN(int nInputs, int nOutputs, int maxSize) {
         this.maxSize = maxSize;
         for (int i = 0; i < nInputs; i++) {
@@ -389,5 +426,22 @@ public class GuavaANN extends ANN {
     @Override
     public double weight(Integer source, Integer target) {
         return topology.edgeValueOrDefault(source, target, 0.0);
+    }
+
+    @Override
+    public EndpointPair<Integer> selectRandomWeight() {
+        Set<EndpointPair<Integer>> edges = topology.edges();
+        int i = Global.r.nextInt(edges.size());
+        int actual=0;
+        Iterator<EndpointPair<Integer>> iterator = edges.iterator();
+        while(actual++<i){iterator.next();}
+        return iterator.next();
+    }
+
+
+
+    @Override
+    public Set<Integer> getNodes() {
+        return this.topology.nodes();
     }
 }

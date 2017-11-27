@@ -1,10 +1,8 @@
 package pcell.algorithm.operators;
 
-import pcell.ann.ANN;
+import pcell.model.ANN;
 import pcell.algorithm.Algorithm;
 import pcell.Population;
-import cern.colt.list.tint.IntArrayList;
-import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import com.google.common.graph.EndpointPair;
 import utils.Global;
 
@@ -14,13 +12,16 @@ import java.util.LinkedHashSet;
 
 public class Differential<T extends ANN> extends OperatorDecorator<T> {
 
-    private double CROSSOVER_RATE = 0.8;
+    private double CROSSOVER_RATE = 0.1;
     private double WEIGTHING_FACTOR = 0.1;
 
     Algorithm<T> algorithm;
 
-    public Differential(Algorithm<T> algorithm) {
+    public Differential(Algorithm<T> algorithm,double cr, double wf) {
         this.algorithm = algorithm;
+        CROSSOVER_RATE=cr;
+        WEIGTHING_FACTOR=wf;
+
     }
 
     @Override

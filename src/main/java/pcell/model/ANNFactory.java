@@ -1,4 +1,4 @@
-package pcell.ann;
+package pcell.model;
 
 
 import pcell.controller.Controller;
@@ -35,17 +35,17 @@ public class ANNFactory {
 //        if(singleton.regression == null){
 //            return null;
 //        }
-//        ann ann= null;
+//        model model= null;
 //        switch (annType.toLowerCase()){
 //            case "guava_ann":
-//                ann = new GuavaANN();
-//                ann.buildFromFitnessFunction(singleton.regression);
+//                model = new GuavaANN();
+//                model.buildFromFitnessFunction(singleton.regression);
 //                break;
 //            case "free_ann":
-//                ann = new FreeFormANN(singleton.regression);
+//                model = new FreeFormANN(singleton.regression);
 //                break;
 //        }
-//        return ann;
+//        return model;
 
         return ann;
     }

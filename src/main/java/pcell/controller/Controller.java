@@ -1,7 +1,6 @@
 package pcell.controller;
 
-import pcell.ann.ANN;
-import pcell.ann.GuavaANN;
+import pcell.model.ANN;
 import pcell.Population;
 import utils.Log;
 

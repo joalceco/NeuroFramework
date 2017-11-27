@@ -1,13 +1,17 @@
 package pcell.controller;
 
-import pcell.ann.ANN;
+import pcell.model.ANN;
 import pcell.Population;
 import utils.Global;
 import utils.Log;
 
 public class StaticController extends Controller {
 
-    int generation = 0;
+    int generation;
+
+    public StaticController() {
+        generation=0;
+    }
 
     @Override
     public void reportStatistics(Population<ANN> population) {

@@ -2,10 +2,7 @@ package pcell.algorithm.operators;
 
 import pcell.Population;
 import pcell.algorithm.Algorithm;
-import pcell.ann.ANN;
-import utils.Global;
-
-import java.util.LinkedHashSet;
+import pcell.model.ANN;
 
 public class SortPopulation<T extends ANN> extends OperatorDecorator<T>{
 

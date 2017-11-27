@@ -1,6 +1,6 @@
 package pcell.algorithm.operators;
 
-import pcell.ann.ANN;
+import pcell.model.ANN;
 import pcell.algorithm.Algorithm;
 import pcell.Population;
 

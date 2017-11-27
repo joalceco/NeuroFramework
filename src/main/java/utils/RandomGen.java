@@ -30,6 +30,14 @@ public class RandomGen extends DoubleMersenneTwister {
         return (int) ((max) * super.nextDouble());
     }
 
+    /**
+     * Returns a random sample number between min(inclusive) and max(exclusive) of size sampleSize.
+     *
+     * @param sampleSize size of the sample
+     * @param min Lower limit of random number(inclusive)
+     * @param max Upper limit of random number(exclusive)
+     * @return  LinkedHashSet<Integer> The random sample.
+     */
     public LinkedHashSet<Integer> sample(int sampleSize, int min, int max) {
         if (max - min < sampleSize) {
             try {
@@ -42,6 +50,7 @@ public class RandomGen extends DoubleMersenneTwister {
         while (set.size() < sampleSize) {
             set.add(nextInt(min, max));
         }
+//        Integer[] y = set.toArray(new Integer[0]);
         return set;
 
     }

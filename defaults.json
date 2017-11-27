@@ -1,6 +1,26 @@
 {
-  "population_size": 100,
-  "cells_params_default": "{'algorithm':'differential'}",
+  "population_size": 20,
+  "cells_params_default": {
+    "ga": {
+      "algorithm":["genetic"],
+      "max_epochs": 1000
+    },
+    "ga-bl": {
+      "algorithm":["genetic","random_mutation"],
+      "max_epochs": 1000
+    },
+    "dif": {
+      "algorithm":["differential"],
+      "max_epochs": 1000
+    },
+    "dif-bl": {
+      "algorithm":["differential","random_mutation"],
+      "max_epochs": 1000
+    },
+    "svr": {
+      "algorithm":["svr"]
+    }
+  },
   "mode": "training",
   "algorithm": "cellular",
   "ann_type": "guava_ann",
@@ -18,7 +38,9 @@
   "stagnation": "bias",
   "max_epochs": 100000,
   "mutation_p": 0.1,
-  "n_cells": 2,
+  "weight_mutation_p": 1.0,
+  "crossover_rate": 0.6,
+  "weigthing_factor": 0.2,
   "min_weight": -20.0,
   "max_weight": 20.0,
   "max_size": 100,

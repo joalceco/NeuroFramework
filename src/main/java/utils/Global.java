@@ -26,7 +26,7 @@ public class Global {
     public static RandomGen r = new RandomGen(3);
     public static int evaluations = 0;
     public static int maxEvaluations = 10000;
-    private static Map<String, Object> params;
+    public static Map<String, Object> params;
 
     public static Map<String, Object> getParams() {
         return params;
@@ -101,5 +101,7 @@ public class Global {
     }
 
 
-
+    public static void setParam(String key, double value) {
+        params.put(key,value);
+    }
 }

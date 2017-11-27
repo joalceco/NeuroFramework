@@ -2,7 +2,7 @@ package pcell.algorithm.operators;
 
 import pcell.Population;
 import pcell.algorithm.Algorithm;
-import pcell.ann.ANN;
+import pcell.model.ANN;
 import utils.Global;
 
 import java.util.LinkedHashSet;

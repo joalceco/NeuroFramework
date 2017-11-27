@@ -1,15 +1,13 @@
-package pcell.ann;
+package pcell.model;
 
 import cern.colt.list.tint.IntArrayList;
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import com.google.common.graph.EndpointPair;
-import utils.Data;
 
 import java.util.Set;
 
 
-public abstract class ANN implements Comparable<ANN>{
-    double fitness;
+public abstract class ANN extends Model implements Comparable<ANN>{
     public int bias_id = -1;
     static int global_id=-1;
     int id;
@@ -64,6 +62,8 @@ public abstract class ANN implements Comparable<ANN>{
 
     public abstract IntArrayList getDestinies(int neuronID);
 
+    public abstract Set<Integer> getDestiniesSet(int neuronID);
+
     public abstract void setBias(int id, double bias);
 
     public abstract void update();
@@ -76,13 +76,13 @@ public abstract class ANN implements Comparable<ANN>{
 
     public abstract DoubleMatrix2D getMatrixWeights();
 
-    public abstract Data epoch(Data x);
-
     public abstract int getNumberOfNeurons();
 
     public abstract Object clone();
 
-    public abstract ANN buildRandomANN(int nInputs, int nOutputs,int maxSize);
+    public abstract ANN cloneEmpty();
+
+    public abstract ANN buildRandomANN(int nInputs, int nOutputs, int maxSize);
 
     public abstract Set<EndpointPair<Integer>> getEdges();
 
@@ -98,10 +98,15 @@ public abstract class ANN implements Comparable<ANN>{
 
     @Override
     public int compareTo(ANN o) {
+        if(fitness==o.fitness) return 0;
         return (fitness<o.fitness)?-1:1;
     }
 
     public int getID() {
         return id;
     }
+
+    public abstract EndpointPair<Integer> selectRandomWeight();
+
+    public abstract Set<Integer> getNodes();
 }
