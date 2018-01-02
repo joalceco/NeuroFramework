@@ -3,54 +3,25 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="1193.875" y="309.0">utils.Global</node>
-    <node x="326.47499999999997" y="465.0">pcell.algorithm.Algorithm</node>
-    <node x="538.7487179487179" y="1088.0">pcell.algorithm.operators.Genetic</node>
-    <node x="1523.7916666666665" y="417.0">utils.Data</node>
-    <node x="755.6544871794872" y="835.5">pcell.controller.StaticController</node>
-    <node x="72.74871794871797" y="1076.0">pcell.algorithm.operators.Differential</node>
-    <node x="1373.0320512820513" y="824.0">utils.ProblemReader</node>
-    <node x="1467.0320512820513" y="1160.5">com.itcm.Main</node>
-    <node x="1156.875" y="12.5">utils.RandomGen</node>
-    <node x="539.0" y="1088.0">pcell.algorithm.operators.RandomMutation</node>
-    <node x="417.8352564102563" y="0.0">pcell.Population</node>
-    <node x="30.729487179487023" y="872.0">pcell.algorithm.operators.OperatorDecorator</node>
-    <node x="789.6544871794872" y="465.0">pcell.controller.Controller</node>
+    <node x="0.0" y="0.0">utils.Parameters</node>
+    <node x="359.0" y="684.0">pcell.algorithm.Algorithm</node>
+    <node x="0.0" y="390.0">utils.Data</node>
+    <node x="418.0" y="203.0">pcell.controller.StaticController</node>
+    <node x="0.0" y="684.0">pcell.evaluator.Evaluator</node>
+    <node x="676.0" y="390.0">pcell.types.ProcessingCell</node>
+    <node x="352.0" y="390.0">pcell.Population</node>
+    <node x="418.0" y="0.0">pcell.controller.Controller</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="pcell.algorithm.operators.Differential" target="pcell.algorithm.operators.OperatorDecorator">
-      <point x="-89.19999999999993" y="-112.5" />
-      <point x="206.54871794871804" y="1046.0" />
-      <point x="110.97948717948702" y="1046.0" />
-      <point x="-80.25" y="28.0" />
-    </edge>
-    <edge source="pcell.algorithm.operators.OperatorDecorator" target="pcell.algorithm.Algorithm">
-      <point x="80.25" y="-28.0" />
-      <point x="271.479487179487" y="794.0" />
-      <point x="358.57499999999993" y="794.0" />
-      <point x="-128.4" y="76.5" />
-    </edge>
-    <edge source="pcell.algorithm.operators.Genetic" target="pcell.algorithm.operators.OperatorDecorator">
-      <point x="-178.39999999999986" y="-100.5" />
-      <point x="583.348717948718" y="1026.0" />
-      <point x="271.479487179487" y="1026.0" />
-      <point x="80.25" y="28.0" />
-    </edge>
-    <edge source="pcell.algorithm.operators.RandomMutation" target="pcell.algorithm.operators.OperatorDecorator">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
     <edge source="pcell.controller.StaticController" target="pcell.controller.Controller">
       <point x="0.0" y="-64.5" />
-      <point x="928.1544871794872" y="804.0" />
-      <point x="962.1544871794872" y="804.0" />
       <point x="0.0" y="76.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.5000000000000001" x="1157.9999999999998" y="679.9999999999999" />
+  <settings layout="Hierarchic Group" zoom="0.5000000000000001" x="849.9999999999998" y="598.9999999999999" />
   <SelectedNodes>
-    <node>pcell.algorithm.operators.RandomMutation</node>
+    <node>pcell.controller.StaticController</node>
   </SelectedNodes>
   <Categories>
     <Category>Fields</Category>

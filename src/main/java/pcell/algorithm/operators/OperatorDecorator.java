@@ -1,11 +1,12 @@
 package pcell.algorithm.operators;
 
-import pcell.model.ANN;
-import pcell.algorithm.Algorithm;
 import pcell.Population;
+import pcell.algorithm.Algorithm;
+import pcell.evaluator.Evaluator;
+import pcell.model.ANN;
 
 public abstract class OperatorDecorator<T extends ANN> extends Algorithm<T> {
 
-    public abstract Population<T> apply(Population<T> pop);
+    public abstract Population<T> apply(Population<T> pop, Evaluator evaluator);
 
 }

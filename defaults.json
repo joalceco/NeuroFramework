@@ -2,29 +2,51 @@
   "population_size": 20,
   "cells_params_default": {
     "ga": {
-      "algorithm":["genetic"],
-      "max_epochs": 1000
+      "type": "evolutionary",
+      "algorithm": [
+        "genetic"
+      ],
+      "max_epochs": 1000,
+      "error_type": "mae",
+      "crossover_rate": 0.6
     },
     "ga-bl": {
-      "algorithm":["genetic","random_mutation"],
-      "max_epochs": 1000
+      "type": "evolutionary",
+      "algorithm": [
+        "genetic",
+        "random_mutation"
+      ],
+      "max_epochs": 1000,
+      "crossover_rate": 0.7,
+      "w_mutation_rate": 0.6
     },
     "dif": {
-      "algorithm":["differential"],
-      "max_epochs": 1000
+      "type": "evolutionary",
+      "algorithm": [
+        "differential"
+      ],
+      "w_mutation_rate": 0.8,
+      "max_epochs": 1000,
+      "error_type": "mae"
     },
     "dif-bl": {
-      "algorithm":["differential","random_mutation"],
+      "type": "evolutionary",
+      "algorithm": [
+        "differential",
+        "random_mutation"
+      ],
+      "w_mutation_rate": 0.8,
       "max_epochs": 1000
     },
     "svr": {
-      "algorithm":["svr"]
+      "type": "svr"
     }
   },
-  "mode": "training",
+  "error_type": "mae",
   "algorithm": "cellular",
   "ann_type": "guava_ann",
   "problem": "regression",
+  "w_mutation_rate": 0.8,
   "selection": "tournament",
   "crossover": "graph",
   "union": "replace_if_improves",
@@ -36,11 +58,11 @@
   "testYPath": "/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/1-OriginalData/testY.csv",
   "outputPath": "/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/4-Analysis/tmp",
   "stagnation": "bias",
-  "max_epochs": 100000,
+  "max_epochs": 1000000,
   "mutation_p": 0.1,
   "weight_mutation_p": 1.0,
   "crossover_rate": 0.6,
-  "weigthing_factor": 0.2,
+  "weighting_factor": 0.2,
   "min_weight": -20.0,
   "max_weight": 20.0,
   "max_size": 100,

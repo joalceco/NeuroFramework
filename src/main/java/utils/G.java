@@ -5,7 +5,6 @@ package utils;/*
  */
 
 
-import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -19,55 +18,69 @@ import java.util.Map;
 /**
  * @author joceco
  */
-public class Global {
-    public static final int seed = 35;
-    public static int id = 0;
+public class G {
     public static boolean DEBUG = false;
     public static RandomGen r = new RandomGen(3);
     public static int evaluations = 0;
     public static int maxEvaluations = 10000;
-    public static Map<String, Object> params;
+    public static HashMap<String, Object> params;
 
-    public static Map<String, Object> getParams() {
+    public static HashMap<String, Object> getParams() {
         return params;
     }
 
     public static int getMaxEvaluations() {
-        if(params.containsKey("max_epochs"))
+        if (params.containsKey("max_epochs"))
             return getIntegerParam("max_epochs");
         return maxEvaluations;
     }
 
-    public static String getANNType(){
-        return (String)params.get("ann_type");
+    public static String getANNType() {
+        return (String) params.get("ann_type");
     }
 
-    public static String getStringParam(String key){
+    public static String getStringParam(String key) {
         paramsNotNull();
-        if(params.containsKey(key)){
+        if (params.containsKey(key)) {
             return (String) params.get(key);
         }
         return "";
     }
 
-    public static Integer getIntegerParam(String key){
+    public static Integer getIntegerParam(String key) {
         paramsNotNull();
-        if(params.containsKey(key)){
-            return  ((Double)params.get(key)).intValue();
+        if (params.containsKey(key)) {
+            return ((Double) params.get(key)).intValue();
         }
         return 0;
     }
 
-    public static Double paramD(String key){
+    public static Object getObjectParam(String key) {
         paramsNotNull();
-        if(params.containsKey(key)){
+        if (params.containsKey(key)) {
+            return (params.get(key));
+        }
+        return null;
+    }
+
+    public static Map<String, Object> getMapParam(String key) {
+        paramsNotNull();
+        if (params.containsKey(key)) {
+            return ((Map<String, Object>) params.get(key));
+        }
+        return null;
+    }
+
+    public static Double paramD(String key) {
+        paramsNotNull();
+        if (params.containsKey(key)) {
             return (Double) params.get(key);
         }
         return 0.0;
     }
 
-    private static void paramsNotNull(){
-        if(params==null){
+    private static void paramsNotNull() {
+        if (params == null) {
             try {
                 getDefaultsFromFile(new File("defaults.json"));
             } catch (FileNotFoundException e) {
@@ -80,9 +93,10 @@ public class Global {
         params = new HashMap<>();
         FileReader fr = new FileReader(defaultsFile);
         JsonReader reader = new JsonReader(fr);
-        Map<String, Object> defaultsM = new Gson().fromJson(reader,
+        HashMap<String, Object> defaultsM = new Gson().fromJson(reader,
                 new TypeToken<HashMap<String, Object>>() {
                 }.getType());
+
         params.putAll(defaultsM);
     }
 
@@ -101,7 +115,11 @@ public class Global {
     }
 
 
-    public static void setParam(String key, double value) {
-        params.put(key,value);
+    public static void setParam(String key, Number value) {
+        params.put(key, value);
+    }
+
+    public static void incrementEpoch() {
+        evaluations++;
     }
 }

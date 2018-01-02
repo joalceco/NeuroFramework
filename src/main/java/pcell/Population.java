@@ -12,26 +12,25 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
  * @author joceco
  */
 public class Population<T extends ANN> extends LinkedList<T> {
 
-    boolean isStagnated = false;
     protected T topology;
+    boolean isStagnated = false;
 //    int size=100;
 
-    private Population(){
+    private Population() {
 
     }
 
-    public static Population emptyPopulation(){
+    public static Population emptyPopulation() {
         return new Population();
     }
 
 //    private Population buildPopulation(){
 //        for (int i = 0; i < size; i++) {
-//            add((T) ANNFactory.buildANN(Global.getANNType()));
+//            add((T) ANNFactory.buildANN(G.getANNType()));
 //        }
 //        return this;
 //    }
@@ -79,21 +78,19 @@ public class Population<T extends ANN> extends LinkedList<T> {
         return this;
     }
 
-
+    public T getTopology() {
+        return topology;
+    }
 
     public void setTopology(T topology) {
         this.topology = topology;
     }
 
-    public T getTopology() {
-        return topology;
-    }
-
     @Override
     public String toString() {
-        StringBuilder stringBuilder= new StringBuilder();
-        for (T a:
-             this) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (T a :
+                this) {
             stringBuilder.append(a.toString());
             stringBuilder.append(System.lineSeparator());
         }

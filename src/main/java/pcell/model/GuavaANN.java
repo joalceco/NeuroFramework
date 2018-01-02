@@ -5,11 +5,12 @@ import cern.colt.matrix.tdouble.DoubleMatrix1D;
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix1D;
 import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
-import com.google.common.graph.*;
+import com.google.common.graph.EndpointPair;
+import com.google.common.graph.MutableValueGraph;
+import com.google.common.graph.ValueGraphBuilder;
 import utils.Data;
 import utils.Functions;
-import utils.Global;
-
+import utils.G;
 
 import java.util.*;
 
@@ -144,7 +145,7 @@ public class GuavaANN extends ANN {
 
     @Override
     public void addConnection(int originID, int destinyID) {
-        addConnection(originID, destinyID, Global.r.nextWeight());
+        addConnection(originID, destinyID, G.r.nextWeight());
     }
 
     @Override
@@ -163,7 +164,7 @@ public class GuavaANN extends ANN {
     public int addRandomConnection() {
         int origin = selectRandomActiveOrInputNeuron();
         int destiny = selectRandomUpperNeuron(origin, true);
-        addConnection(origin, destiny, Global.r.nextWeight());
+        addConnection(origin, destiny, G.r.nextWeight());
         return 0;
     }
 
@@ -198,7 +199,7 @@ public class GuavaANN extends ANN {
     @Override
     public int selectRandomHiddenNeuron(boolean active) {
         List<Integer> s = getHiddenNeurons(active);
-        return Global.r.selectRandomElement(s);
+        return G.r.selectRandomElement(s);
     }
 
     @Override
@@ -210,14 +211,14 @@ public class GuavaANN extends ANN {
             }
         }
         if (active) {
-            return Global.r.selectRandomElement(nodes);
+            return G.r.selectRandomElement(nodes);
         } else {
             List<Integer> s = new ArrayList<>();
             for (int i = id + 1; i < maxSize; i++) {
                 s.add(i);
             }
             s.removeAll(nodes);
-            return Global.r.selectRandomElement(s);
+            return G.r.selectRandomElement(s);
         }
 
     }
@@ -231,14 +232,14 @@ public class GuavaANN extends ANN {
             }
         }
         if (active) {
-            return Global.r.selectRandomElement(nodes);
+            return G.r.selectRandomElement(nodes);
         } else {
             List<Integer> s = new ArrayList<>();
             for (int i = 0; i < id; i++) {
                 s.add(i);
             }
             s.removeAll(nodes);
-            return Global.r.selectRandomElement(s);
+            return G.r.selectRandomElement(s);
         }
 
     }
@@ -280,7 +281,35 @@ public class GuavaANN extends ANN {
 
     @Override
     public String toDot() {
-        return null;
+        String ls = System.lineSeparator();
+        StringBuilder sb = new StringBuilder();
+        sb.append("digraph G {").append(ls);
+        sb.append("{").append(ls);
+        for (Integer node : topology.nodes()) {
+            if (topology.hasEdgeConnecting(bias_id, node)) {
+                sb.append(node).append(" [label=\" ").append(node).append("\n ");
+                sb.append("b=").append(String.format("%.3f", topology.edgeValue(bias_id, node).get()));
+                sb.append("\"]").append(ls);
+            }
+        }
+        sb.append("}").append(ls);
+
+        for (EndpointPair<Integer> edge :
+                topology.edges()) {
+            if (edge.source() != bias_id) {
+                sb.append("\t");
+                sb.append(edge.source()).append(" ");
+                sb.append("->");
+                sb.append(edge.target()).append(" ");
+                sb.append("[ label=\"");
+                sb.append(String.format("%.3f", topology.edgeValue(edge.nodeU(), edge.nodeV()).get()));
+                sb.append("\" ];");
+                sb.append(System.lineSeparator());
+            }
+        }
+        sb.append("{rank = same; 0;}").append(ls);
+        sb.append("}");
+        return sb.toString();
     }
 
     @Override
@@ -307,7 +336,7 @@ public class GuavaANN extends ANN {
             stringBuilder.append(System.lineSeparator());
         }
         return "GuavaANN {" + System.lineSeparator() +
-                "fitness=" + String.format("%.3f",fitness) + System.lineSeparator() +
+                "fitness=" + String.format("%.3f", fitness) + System.lineSeparator() +
                 "edges=" + stringBuilder.toString() +
                 ", inputs=" + inputs +
                 ", outputs=" + outputs +
@@ -328,31 +357,31 @@ public class GuavaANN extends ANN {
         TreeSet<Integer> nodes = new TreeSet(topology.nodes());
         nodes.remove(bias_id);
         nodes.removeAll(inputs);
-        HashMap<Integer,DoubleMatrix1D> energy = new HashMap<>();
+        HashMap<Integer, DoubleMatrix1D> energy = new HashMap<>();
         //prepare bias
-        energy.put(this.bias_id,new DenseDoubleMatrix1D(nElements).assign(1));
+        energy.put(this.bias_id, new DenseDoubleMatrix1D(nElements).assign(1));
         //prepare inputs
         inputs.forEach(input_id -> energy.put(input_id, input.viewColumn(input_id)));
         //execute neurons
-        for (int hidden_node_id: nodes) {
+        for (int hidden_node_id : nodes) {
             DoubleMatrix1D output_energy = new DenseDoubleMatrix1D(nElements);
             Set<Integer> predecessors = topology.predecessors(hidden_node_id);
-            for (int predecessor:predecessors) {
-                double weight=topology.edgeValue(predecessor,hidden_node_id).get();
+            for (int predecessor : predecessors) {
+                double weight = topology.edgeValue(predecessor, hidden_node_id).get();
                 DoubleMatrix1D in_energy = energy.get(predecessor).copy();
-                output_energy.assign(in_energy,(out, in) -> out+weight*in);
+                output_energy.assign(in_energy, (out, in) -> out + weight * in);
             }
-            if (!outputs.contains(hidden_node_id)){
+            if (!outputs.contains(hidden_node_id)) {
                 output_energy.assign(element -> Functions.sigmoid(element));
             }
-            energy.put(hidden_node_id,output_energy);
+            energy.put(hidden_node_id, output_energy);
         }
-        DoubleMatrix2D output_energy=new DenseDoubleMatrix2D(nElements,outputs.size());
-        int mat_index=0;
-        for (int out :outputs) {
+        DoubleMatrix2D output_energy = new DenseDoubleMatrix2D(nElements, outputs.size());
+        int mat_index = 0;
+        for (int out : outputs) {
             output_energy.viewColumn(mat_index++).assign(energy.get(out));
         }
-        return new Data("output",output_energy);
+        return new Data("output", output_energy);
     }
 
 
@@ -386,7 +415,7 @@ public class GuavaANN extends ANN {
     }
 
     @Override
-    public ANN cloneEmpty(){
+    public ANN cloneEmpty() {
         GuavaANN ann = new GuavaANN();
         ann.maxSize = this.maxSize;
         for (Integer input :
@@ -431,13 +460,14 @@ public class GuavaANN extends ANN {
     @Override
     public EndpointPair<Integer> selectRandomWeight() {
         Set<EndpointPair<Integer>> edges = topology.edges();
-        int i = Global.r.nextInt(edges.size());
-        int actual=0;
+        int i = G.r.nextInt(edges.size());
+        int actual = 0;
         Iterator<EndpointPair<Integer>> iterator = edges.iterator();
-        while(actual++<i){iterator.next();}
+        while (actual++ < i) {
+            iterator.next();
+        }
         return iterator.next();
     }
-
 
 
     @Override

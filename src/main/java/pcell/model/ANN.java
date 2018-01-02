@@ -7,13 +7,13 @@ import com.google.common.graph.EndpointPair;
 import java.util.Set;
 
 
-public abstract class ANN extends Model implements Comparable<ANN>{
+public abstract class ANN extends Model implements Comparable<ANN> {
+    static int global_id = -1;
     public int bias_id = -1;
-    static int global_id=-1;
     int id;
 
     public void setId() {
-        this.id = global_id++;
+        this.id = ++global_id;
     }
 
     public abstract void buildFromTemplate(ANN copy, boolean clone);
@@ -88,18 +88,18 @@ public abstract class ANN extends Model implements Comparable<ANN>{
 
     public abstract double weight(Integer source, Integer target);
 
+    public double getFitness() {
+        return fitness;
+    }
+
     public void setFitness(double fitness) {
         this.fitness = fitness;
     }
 
-    public double getFitness() {
-            return fitness;
-    }
-
     @Override
     public int compareTo(ANN o) {
-        if(fitness==o.fitness) return 0;
-        return (fitness<o.fitness)?-1:1;
+        if (fitness == o.fitness) return 0;
+        return (fitness < o.fitness) ? -1 : 1;
     }
 
     public int getID() {

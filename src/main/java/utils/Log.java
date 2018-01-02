@@ -5,7 +5,7 @@ import org.apache.commons.csv.CSVPrinter;
 
 import java.io.IOException;
 
-public class Log{
+public class Log {
     int id;
     int generation;
     int epoch;
@@ -20,7 +20,7 @@ public class Log{
         this.epoch = epoch;
         this.fitness = fitness;
         this.index = index;
-        this.neurons= neurons;
+        this.neurons = neurons;
         this.dot = dot;
     }
 
@@ -35,15 +35,21 @@ public class Log{
         printer.println();
     }
 
-    public String asCsvRow(){
-        StringBuilder sb= new StringBuilder();
+    public String asCsvRow() {
+        StringBuilder sb = new StringBuilder();
 
-        sb.append(id);sb.append(",");
-        sb.append(generation);sb.append(",");
-        sb.append(epoch);sb.append(",");
-        sb.append(fitness);sb.append(",");
-        sb.append(index);sb.append(",");
-        sb.append(neurons);sb.append(",");
+        sb.append(id);
+        sb.append(",");
+        sb.append(generation);
+        sb.append(",");
+        sb.append(epoch);
+        sb.append(",");
+        sb.append(fitness);
+        sb.append(",");
+        sb.append(index);
+        sb.append(",");
+        sb.append(neurons);
+        sb.append(",");
         sb.append(dot);
         return sb.toString();
     }

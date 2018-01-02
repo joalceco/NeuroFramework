@@ -6,7 +6,7 @@ public class Utils {
 
     static DecimalFormat df = new DecimalFormat("#.00");
 
-    public static String formatDouble(double num){
+    public static String formatDouble(double num) {
         return df.format(num);
     }
 }

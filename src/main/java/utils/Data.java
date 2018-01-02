@@ -6,14 +6,10 @@ import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Data{
+public class Data {
 
     Map<String, Integer> headerMap;
     DoubleMatrix2D data;
-
-    public int nColumns(){
-        return data.columns();
-    }
 
     public Data(Map<String, Integer> headerMap, DoubleMatrix2D data) {
         this.headerMap = headerMap;
@@ -22,12 +18,27 @@ public class Data{
 
     public Data(String autoLabel, DoubleMatrix2D data) {
         Map<String, Integer> headerMap = new HashMap<>();
-        for (int column=0;column<data.columns();column++) {
-            headerMap.put(autoLabel+"_"+column,column);
+        for (int column = 0; column < data.columns(); column++) {
+            headerMap.put(autoLabel + "_" + column, column);
         }
         this.headerMap = headerMap;
 
         this.data = data;
+    }
+
+    public static Data sumData(Map<String, Data> results) {
+        // TODO: 22/11/17 There has to be a better way!!!
+        // https://i.imgur.com/GT7yitp.gif
+        int rows = results.values().iterator().next().data.rows();
+        int columns = results.values().iterator().next().data.columns();
+        DoubleMatrix2D yHat = new DenseDoubleMatrix2D(rows, columns);
+        results.values().forEach(yFromCell -> yHat.assign(yFromCell.getRawMatrix(), (a, b) -> a + b));
+        Data yHatData = new Data("yHat", yHat);
+        return yHatData;
+    }
+
+    public int nColumns() {
+        return data.columns();
     }
 
     public DoubleMatrix2D getRawMatrix() {
@@ -43,18 +54,7 @@ public class Data{
     }
 
     public double getRawData(int row, int column) {
-        return data.get(row,column);
-    }
-
-    public static Data sumData(Map<String, Data> results) {
-        // TODO: 22/11/17 There has to be a better way!!!
-        // https://i.imgur.com/GT7yitp.gif
-        int rows = results.values().iterator().next().data.rows();
-        int columns = results.values().iterator().next().data.columns();
-        DoubleMatrix2D yHat = new DenseDoubleMatrix2D(rows,columns);
-        results.values().forEach(yFromCell -> yHat.assign(yFromCell.getRawMatrix(),(a, b) -> a+b));
-        Data yHatData = new Data("yHat", yHat);
-        return yHatData;
+        return data.get(row, column);
     }
 
     @Override

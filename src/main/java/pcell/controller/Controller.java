@@ -1,26 +1,21 @@
 package pcell.controller;
 
-import pcell.model.ANN;
 import pcell.Population;
-import utils.Log;
-
-import java.util.LinkedList;
-import java.util.List;
+import pcell.model.ANN;
+import pcell.types.ProcessingCell;
 
 public abstract class Controller {
 
-    public abstract void reportStatistics(Population<ANN> population);
-
-    List<Log> history;
-
-    public List<Log> getHistory() {
-        return history;
-    }
+    //    LogManager history;
+    ProcessingCell cell;
 
     public Controller() {
-        history = new LinkedList<>();
     }
+
+    public abstract void reportStatistics(Population<ANN> population);
+
     public abstract int intParameter(String param);
+
     public abstract boolean live();
 
 }

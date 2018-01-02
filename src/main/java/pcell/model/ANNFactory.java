@@ -3,7 +3,7 @@ package pcell.model;
 
 import pcell.controller.Controller;
 import utils.Data;
-import utils.Global;
+import utils.G;
 
 public class ANNFactory {
 
@@ -11,7 +11,8 @@ public class ANNFactory {
     int nOutputs;
     Controller control;
 
-    private ANNFactory(){}
+    private ANNFactory() {
+    }
 
     public ANNFactory(int nInputs, int nOutputs, Controller control) {
         this.nInputs = nInputs;
@@ -19,17 +20,17 @@ public class ANNFactory {
         this.control = control;
     }
 
-    public static ANNFactory buildANNFactory(Data x, Data y, Controller control){
-        return new ANNFactory(x.nColumns(),y.nColumns(),control);
+    public static ANNFactory buildANNFactory(Data x, Data y, Controller control) {
+        return new ANNFactory(x.nColumns(), y.nColumns(), control);
 
     }
 
 
-    public ANN buildANN(){
+    public ANN buildANN() {
         ANN ann = null;
-        switch (Global.getStringParam("ann_type").toLowerCase()) {
+        switch (G.getStringParam("ann_type").toLowerCase()) {
             case "guava_ann":
-                ann=GuavaANN.buildANN().buildRandomANN(nInputs,nOutputs,control.intParameter("max_size"));
+                ann = GuavaANN.buildANN().buildRandomANN(nInputs, nOutputs, control.intParameter("max_size"));
                 break;
         }
 //        if(singleton.regression == null){

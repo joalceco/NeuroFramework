@@ -1,19 +1,27 @@
 package pcell.algorithm;
 
 
-import pcell.model.ANN;
 import pcell.Population;
 import pcell.evaluator.Evaluator;
+import pcell.model.ANN;
+import pcell.types.ProcessingCell;
+import utils.Parameters;
 
-public class Base<T extends ANN> extends Algorithm<T>{
+public class Base<T extends ANN> extends Algorithm<T> {
 
-    public Base(Evaluator evaluator) {
-        this.evaluator = evaluator;
-        pseudoCode="";
+    public Base() {
+        params = new Parameters();
+        pseudoCode = "Base";
+    }
+
+    public Base(ProcessingCell cell) {
+        this.cell = cell;
+        params = cell.params;
+        pseudoCode = "Base";
     }
 
     @Override
-    public Population<T> apply(Population<T> pop) {
+    public Population<T> apply(Population<T> pop, Evaluator evaluator) {
         return pop;
     }
 }

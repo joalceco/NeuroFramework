@@ -1,13 +1,14 @@
 package com.itcm;
 
-import pcell.evaluator.MaeEvaluator;
+import pcell.PCellFactory;
+import pcell.evaluator.MAError;
 import pcell.model.Model;
 import pcell.types.ProcessingCell;
-import pcell.types.neuro.BasicNeuroPCell;
 import utils.Data;
-import utils.Global;
+import utils.G;
 import utils.ProblemReader;
 import utils.Utils;
+import utils.loggers.CsvManager;
 
 import java.io.IOException;
 
@@ -24,27 +25,26 @@ public class Main {
         for (double cr = 0.6; cr < 0.61; cr += 0.05) {
             for (double wf = 0.2; wf < 0.21; wf += 0.05) {
                 for (double wm = 0.8; wm < 0.81; wm += 0.05) {
-                    Global.evaluations = 0;
-                    Global.setParam("crossover_rate", cr);
-                    Global.setParam("weigthing_factor", wf);
-                    Global.setParam("weight_mutation_p", wm);
-                    ProcessingCell pcell = BasicNeuroPCell
-                            .buildBasicGenetic();
+                    G.evaluations = 0;
+                    G.setParam("crossover_rate", cr);
+                    G.setParam("weigthing_factor", wf);
+                    G.setParam("weight_mutation_p", wm);
+                    ProcessingCell pcell = PCellFactory.buildBasicDifferential();
                     pcell.fit(x, y);
                     Model bestSolution = pcell.getBestModel();
-                    ((BasicNeuroPCell) pcell).historyToCSV(
-                            "/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/4-Analysis/historico_ann/history"
-                                    + Utils.formatDouble(cr) + "-"
-                                    + Utils.formatDouble(wf) + "-"
-                                    + Utils.formatDouble(wm) + "-"
-                                    +".csv");
+                    pcell.setLogManager(new CsvManager(pcell, "/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/4-Analysis/historico_ann/history"
+                            + Utils.formatDouble(cr) + "-"
+                            + Utils.formatDouble(wf) + "-"
+                            + Utils.formatDouble(wm) + "-"
+                            + ".csv"));
+
                     double fitness = bestSolution.getFitness();
-                    System.out.print(cr+","+wf+","+wm+",");
+                    System.out.print(cr + "," + wf + "," + wm + ",");
                     System.out.print(fitness);
                     Data xTest = ProblemReader.getX("/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/1-OriginalData/testX.csv");
                     Data yTest = ProblemReader.getY("/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/1-OriginalData/testY.csv");
                     Data yHat = bestSolution.epoch(xTest);
-                    double mae = MaeEvaluator.computeError(yTest, yHat);
+                    double mae = MAError.computeError(yTest, yHat);
                     System.out.println(", " + mae);
                 }
             }
