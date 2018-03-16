@@ -7,15 +7,15 @@ import pcell.model.ANN;
 
 public class SortPopulation<T extends ANN> extends OperatorDecorator<T> {
 
-    Algorithm<T> algorithm;
-    double prob;
+    private Algorithm<T> algorithm;
+//    double prob;
 
     private SortPopulation() {
     }
 
-    public SortPopulation(Algorithm<T> algorithm, double prob) {
+    public SortPopulation(Algorithm<T> algorithm) {
         this.algorithm = algorithm;
-        this.prob = prob;
+//        this.prob = prob;
     }
 
     @Override

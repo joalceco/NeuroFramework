@@ -9,20 +9,23 @@ import utils.Parameters;
 
 import java.util.LinkedHashSet;
 
-public class RandomMutation<T extends ANN> extends OperatorDecorator<T> {
+public class RandomEliteTopologyMutation<T extends ANN> extends OperatorDecorator<T> {
 
     Algorithm<T> algorithm;
+    int generation;
 
-    private RandomMutation() {
+    private RandomEliteTopologyMutation() {
     }
 
-    public RandomMutation(Algorithm<T> algorithm, double prob) {
+    public RandomEliteTopologyMutation(Algorithm<T> algorithm, double prob, double eliteSize) {
         this.algorithm = algorithm;
         params = new Parameters();
-        params.setParam("w_mutation_rate", prob);
+generation=0;
+        params.setParam("topology_mutation_rate", prob);
+        params.setParam("elite_size", eliteSize);
     }
 
-    public RandomMutation(Algorithm<T> algorithm, Parameters parameters) {
+    public RandomEliteTopologyMutation(Algorithm<T> algorithm, Parameters parameters) {
         this.algorithm = algorithm;
         params = parameters;
     }
@@ -36,14 +39,18 @@ public class RandomMutation<T extends ANN> extends OperatorDecorator<T> {
     @Override
     public Population<T> apply(Population<T> pop, Evaluator evaluator) {
         pop = algorithm.apply(pop, evaluator);
-        LinkedHashSet<Integer> sample = G.r.sample(
-                (int) Math.ceil(pop.size() * params.getDouble("w_mutation_rate"))
-                , 0,
-                pop.size() - 1);
-        for (int sol : sample) {
-            mutate(sol, pop);
-            evaluate(pop.get(sol), evaluator);
+        pop.sort(ANN::compareTo);
+        if(generation%1000==0) {
+            LinkedHashSet<Integer> sample = G.r.sample(
+                    (int) Math.ceil(pop.size() * params.getDouble("topology_mutation_rate")),
+                    (int) Math.ceil(pop.size() * params.getDouble("elite_size")),
+                    pop.size() - 1);
+            for (int sol : sample) {
+                mutate(sol, pop);
+                evaluate(pop.get(sol), evaluator);
+            }
         }
+        generation++;
         return pop;
     }
 

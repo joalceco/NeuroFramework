@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class CellularProcessing {
 
-    HashMap<String, ProcessingCell> cells;
-    HashMap<String, Double> probabilities = new HashMap<>();
+    private HashMap<String, ProcessingCell> cells;
+    private HashMap<String, Double> probabilities = new HashMap<>();
 
     private CellularProcessing() {
         cells = new HashMap<>();
@@ -50,15 +50,13 @@ public class CellularProcessing {
     }
 
     public void fit(Data X, Data Y) {
-        cells.forEach((name, processingCell) -> {
-            processingCell.fit(X, Y);
-        });
+        cells.forEach((name, processingCell) -> processingCell.fit(X, Y));
     }
 
     public Data test(Data X) {
         HashMap<String, Data> results = new HashMap<>();
         cells.forEach((name, processingCell) -> {
-            Data test = processingCell.test(X);
+            Data test = processingCell.predict(X);
             System.out.println(name);
             System.out.println(test.getRawMatrix());
             results.put(name, test);
@@ -66,7 +64,7 @@ public class CellularProcessing {
         return ensemble(results);
     }
 
-    public Data ensemble(Map<String, Data> results) {
+    private Data ensemble(Map<String, Data> results) {
         probabilities.put("dif", 0.009326618);
         probabilities.put("ga", -0.422565712);
         probabilities.put("dif-bl", -0.0415381);

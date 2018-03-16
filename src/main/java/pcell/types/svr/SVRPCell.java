@@ -3,7 +3,7 @@ package pcell.types.svr;
 import pcell.algorithm.Algorithm;
 import pcell.controller.Controller;
 import pcell.evaluator.Evaluator;
-import pcell.evaluator.MAError;
+import pcell.evaluator.Error;
 import pcell.model.Model;
 import pcell.model.SVR;
 import pcell.types.ProcessingCell;
@@ -21,7 +21,7 @@ public class SVRPCell extends ProcessingCell {
 
     public static SVRPCell buildBasicSVR() {
         SVRPCell svr = new SVRPCell();
-        svr.evaluator = new MAError();
+        svr.evaluator = new Error();
         svr.model.buildParameters();
         return svr;
     }

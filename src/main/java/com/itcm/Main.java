@@ -1,7 +1,7 @@
 package com.itcm;
 
 import pcell.PCellFactory;
-import pcell.evaluator.MAError;
+import pcell.evaluator.Error;
 import pcell.model.Model;
 import pcell.types.ProcessingCell;
 import utils.Data;
@@ -11,6 +11,7 @@ import utils.Utils;
 import utils.loggers.CsvManager;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class Main {
 
@@ -32,11 +33,11 @@ public class Main {
                     ProcessingCell pcell = PCellFactory.buildBasicDifferential();
                     pcell.fit(x, y);
                     Model bestSolution = pcell.getBestModel();
-                    pcell.setLogManager(new CsvManager(pcell, "/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/4-Analysis/historico_ann/history"
-                            + Utils.formatDouble(cr) + "-"
+                    pcell.setLogManager(new CsvManager(pcell, Paths.get("/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/4-Analysis/historico_ann/history")
+                            .resolve(Utils.formatDouble(cr) + "-"
                             + Utils.formatDouble(wf) + "-"
                             + Utils.formatDouble(wm) + "-"
-                            + ".csv"));
+                            + ".csv")));
 
                     double fitness = bestSolution.getFitness();
                     System.out.print(cr + "," + wf + "," + wm + ",");
@@ -44,7 +45,7 @@ public class Main {
                     Data xTest = ProblemReader.getX("/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/1-OriginalData/testX.csv");
                     Data yTest = ProblemReader.getY("/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/1-OriginalData/testY.csv");
                     Data yHat = bestSolution.epoch(xTest);
-                    double mae = MAError.computeError(yTest, yHat);
+                    double mae = Error.computeError(yTest, yHat);
                     System.out.println(", " + mae);
                 }
             }

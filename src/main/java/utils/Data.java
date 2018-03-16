@@ -2,27 +2,37 @@ package utils;
 
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.google.common.primitives.Doubles;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.jnlp.IntegrationService;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.*;
 
 public class Data {
 
-    Map<String, Integer> headerMap;
+    HashBiMap<String,Integer> headerMap;
+    HashBiMap<String,Integer> indexMap;
     DoubleMatrix2D data;
 
-    public Data(Map<String, Integer> headerMap, DoubleMatrix2D data) {
-        this.headerMap = headerMap;
+    public Data(Map<String,Integer> headerMap, Map<String,Integer> indexMap,DoubleMatrix2D data) {
+        this.headerMap = HashBiMap.create(headerMap);
+        this.indexMap = HashBiMap.create(indexMap);
         this.data = data;
     }
 
     public Data(String autoLabel, DoubleMatrix2D data) {
-        Map<String, Integer> headerMap = new HashMap<>();
+        headerMap = HashBiMap.create();
         for (int column = 0; column < data.columns(); column++) {
-            headerMap.put(autoLabel + "_" + column, column);
+            headerMap.put(autoLabel + "_" + column,column);
         }
-        this.headerMap = headerMap;
-
         this.data = data;
     }
 
@@ -62,14 +72,29 @@ public class Data {
         return data.toString();
     }
 
-    //    public Data dropColumn(String header){
-//        int column = headerMap.get(header);
-//        DoubleMatrix1D matrix1D = data.viewColumn(column).copy();
-//        data.viewSelection(null, headerMap.)
-//        DoubleMatrix2D data = matrix1D.like2D((int) matrix1D.size(), 1);
-//        data.viewSelection(null, )
-//        new Data()
-//    }
+    public void toCsv(String s) {
+        try {
+            FileWriter fileWriter = new FileWriter(s, false);
+            CSVPrinter printer = CSVFormat.RFC4180.print(fileWriter);
+            BiMap<Integer, String> inverse = headerMap.inverse();
+            printer.print("");
+            for (int i = 0; i < inverse.size(); i++) {
+                printer.print(inverse.get(i));
+            }
+            printer.println();
+            ImmutableList<double[]> il = ImmutableList.copyOf(data.toArray());
+            for (int i = 0; i < il.size(); i++) {
+                List<Double> list = Doubles.asList(il.get(i));
+                printer.print(i);
+                printer.printRecord(list);
+            }
+            printer.close();
+        }catch (IOException e){
+            System.err.println(e);
+        }
+    }
 
-
+    public void toCsv(Path outputFile) {
+        toCsv(outputFile.toString());
+    }
 }

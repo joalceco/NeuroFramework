@@ -155,9 +155,9 @@ public class GuavaANN extends ANN {
 
     @Override
     public int selectRandomActiveOrInputNeuron() {
-        IntArrayList intArrayList = new IntArrayList();
-
-        return 0;
+        List<Integer> neurons = getHiddenNeurons(true);
+        neurons.addAll(inputs);
+        return G.r.selectRandomElement(neurons);
     }
 
     @Override
@@ -165,12 +165,12 @@ public class GuavaANN extends ANN {
         int origin = selectRandomActiveOrInputNeuron();
         int destiny = selectRandomUpperNeuron(origin, true);
         addConnection(origin, destiny, G.r.nextWeight());
-        return 0;
+        return destiny;
     }
 
     @Override
     public int selectRandomDisableNeuron() {
-        return 0;
+        return G.r.selectRandomElement(getHiddenNeurons(false));
     }
 
     public List<Integer> getHiddenNeurons(boolean active) {
@@ -206,10 +206,11 @@ public class GuavaANN extends ANN {
     public int selectRandomUpperNeuron(int id, boolean active) {
         List<Integer> nodes = new ArrayList<>();
         for (Integer node : topology.nodes()) {
-            if (node > id) {
+            if (node > id & !inputs.contains(node)) {
                 nodes.add(node);
             }
         }
+
         if (active) {
             return G.r.selectRandomElement(nodes);
         } else {
@@ -372,7 +373,7 @@ public class GuavaANN extends ANN {
                 output_energy.assign(in_energy, (out, in) -> out + weight * in);
             }
             if (!outputs.contains(hidden_node_id)) {
-                output_energy.assign(element -> Functions.sigmoid(element));
+                output_energy.assign(element -> Functions.tanh(element));
             }
             energy.put(hidden_node_id, output_energy);
         }

@@ -21,7 +21,7 @@ public abstract class ProcessingCell {
 
     public abstract ProcessingCell fit(Data X, Data Y);
 
-    public Data test(Data X) {
+    public Data predict(Data X) {
         return getBestModel().epoch(X);
     }
 

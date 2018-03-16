@@ -13,6 +13,9 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +26,11 @@ import java.util.Map;
  */
 public class ProblemReader {
 
-    public static Data ProblemReader(String csvPath) throws IOException {
+    public static Data read_csv(Path csvPath, boolean index_column) throws IOException {
+        return read_csv(csvPath.toString(),index_column);
+    }
+
+    public static Data read_csv(String csvPath, boolean index_column) throws IOException {
         Reader in = new FileReader(csvPath);
         List<CSVRecord> records = null;
         Map<String, Integer> headerMap = null;
@@ -31,13 +38,19 @@ public class ProblemReader {
         parser = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
         records = parser.getRecords();
         headerMap = parser.getHeaderMap();
-        DoubleMatrix2D data = new DenseDoubleMatrix2D(records.size(), headerMap.size() - 1);
+        if(index_column){
+            headerMap.remove("");
+        }
+        HashMap<String,Integer> indexMap = new HashMap<>();
+        int shift = index_column? 1:0;
+        DoubleMatrix2D data = new DenseDoubleMatrix2D(records.size(), headerMap.size());
         for (int i = 0; i < data.rows(); i++) {
+            indexMap.put(index_column?records.get(i).get(0):""+i,i);
             for (int j = 0; j < data.columns(); j++) {
-                data.setQuick(i, j, Double.parseDouble(records.get(i).get(j + 1)));
+                data.setQuick(i, j, Double.parseDouble(records.get(i).get(j + shift)));
             }
         }
-        return new Data(headerMap, data);
+        return new Data(headerMap,indexMap, data);
     }
 
     public static Data getX(String csvPath) throws IOException {
@@ -46,7 +59,7 @@ public class ProblemReader {
         } else if (csvPath == "") {
             csvPath = G.getStringParam("trainingXPath");
         }
-        return ProblemReader(csvPath);
+        return read_csv(csvPath, true);
     }
 
     public static Data getY(String csvPath) throws IOException {
@@ -55,7 +68,7 @@ public class ProblemReader {
         } else if (csvPath == "") {
             csvPath = G.getStringParam("trainingYPath");
         }
-        return ProblemReader(csvPath);
+        return read_csv(csvPath, true);
     }
 
     public DoubleMatrix2D fromCSVtoDoubleMatrix2D() throws IOException {

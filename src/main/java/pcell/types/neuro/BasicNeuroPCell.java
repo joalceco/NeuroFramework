@@ -22,7 +22,7 @@ public class BasicNeuroPCell extends ProcessingCell {
 //
 //    public static ProcessingCell buildBasicDifferentialLS(){
 //        BasicNeuroPCell pCell = new BasicNeuroPCell();
-//        pCell.evaluator = new MAError();
+//        pCell.evaluator = new Error();
 //        pCell.algorithm = new Base<>();
 //        pCell.algorithm = new Differential<>(
 //                pCell.algorithm,
@@ -39,7 +39,7 @@ public class BasicNeuroPCell extends ProcessingCell {
 //
 //    public static ProcessingCell buildBasicGeneticLS(){
 //        BasicNeuroPCell pCell = new BasicNeuroPCell();
-//        pCell.evaluator = new MAError();
+//        pCell.evaluator = new Error();
 //        pCell.algorithm = new Base<>();
 //        pCell.algorithm = new Genetic<>(
 //                pCell.algorithm,
@@ -55,7 +55,7 @@ public class BasicNeuroPCell extends ProcessingCell {
 //
 //    public static ProcessingCell buildBasicGenetic(){
 //        BasicNeuroPCell pCell = new BasicNeuroPCell();
-//        pCell.evaluator = new MAError();
+//        pCell.evaluator = new Error();
 //        pCell.algorithm = new Base();
 //        pCell.algorithm = new Genetic<>(
 //                pCell.algorithm,
@@ -90,7 +90,11 @@ public class BasicNeuroPCell extends ProcessingCell {
         evaluatePopulation(population, evaluator);
         control.reportStatistics(population);
 //        System.out.println(population.toString());
+        int gen=0;
         while (control.live()) {
+            gen++;
+            if(gen%1000==0)
+                System.out.println(gen);
             algorithm.apply(population, evaluator);
             control.reportStatistics(population);
         }

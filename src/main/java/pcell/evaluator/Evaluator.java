@@ -21,7 +21,7 @@ public abstract class Evaluator {
 //        switch (errorType.toLowerCase()) {
 //            case "mae":
 //            default:
-//                return new MAError();
+//                return new Error();
 //            case "rmse":
 //                return new RMSError();
 //        }

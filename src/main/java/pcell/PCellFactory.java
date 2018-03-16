@@ -1,9 +1,9 @@
 package pcell;
 
 import pcell.algorithm.Base;
-import pcell.algorithm.operators.Differential;
+import pcell.algorithm.operators.*;
 import pcell.controller.StaticController;
-import pcell.evaluator.MAError;
+import pcell.evaluator.Error;
 import pcell.types.ProcessingCell;
 import pcell.types.neuro.BasicNeuroPCell;
 import utils.G;
@@ -14,12 +14,37 @@ public class PCellFactory {
     public static ProcessingCell buildBasicDifferential() {
         ProcessingCell pCell = BasicNeuroPCell.buildEmpty();
         pCell.setLogManager(new NoManager(pCell));
-        pCell.setEvaluator(new MAError());
+        pCell.setEvaluator(new Error());
         pCell.setAlgorithm(new Base<>(pCell));
         pCell.setAlgorithm(new Differential<>(
                 pCell.algorithm,
                 G.paramD("crossover_rate"),
                 G.paramD("weighting_factor")
+        ));
+//        pCell.setAlgorithm(new Genetic(
+//                pCell.algorithm,
+//                0.8
+//        ));
+        pCell.setAlgorithm(new RandomEliteTopologyMutation(
+                pCell.algorithm,
+                0.3,
+                0.2
+        ));
+        pCell.setController(new StaticController(pCell));
+        return pCell;
+    }
+
+    public static ProcessingCell buildBestMutator() {
+        ProcessingCell pCell = BasicNeuroPCell.buildEmpty();
+        pCell.setLogManager(new NoManager(pCell));
+        pCell.setEvaluator(new Error());
+        pCell.setAlgorithm(new Base<>(pCell));
+        pCell.setAlgorithm(new SortPopulation(
+                pCell.algorithm
+                ));
+        pCell.setAlgorithm(new MutateFromBest(
+                pCell.algorithm,
+                0.3
         ));
         pCell.setController(new StaticController(pCell));
         return pCell;

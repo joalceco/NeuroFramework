@@ -8,6 +8,7 @@ import utils.Log;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -23,13 +24,13 @@ public class CsvManager extends LogManager {
 //        logs = new LinkedList<>();
 //    }
 
-    public CsvManager(ProcessingCell cell, String file) {
+    public CsvManager(ProcessingCell cell, Path logPath) {
         this.cell = cell;
-        this.file = new File(file);
+        this.file = logPath.toFile();
         this.file.getParentFile().mkdirs();
         try {
             this.file.createNewFile();
-            FileWriter fileWriter = new FileWriter(file);
+            FileWriter fileWriter = new FileWriter(this.file);
             CSVPrinter printer = CSVFormat.RFC4180.print(fileWriter);
             Log.csvHeadertoPrinter(printer);
             printer.close();

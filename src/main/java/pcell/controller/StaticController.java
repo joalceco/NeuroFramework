@@ -1,14 +1,16 @@
 package pcell.controller;
 
 import pcell.Population;
+import pcell.evaluator.Error;
 import pcell.model.ANN;
 import pcell.types.ProcessingCell;
+import utils.Data;
 import utils.G;
 import utils.Log;
 
 public class StaticController extends Controller {
 
-//    Parameters params;
+    //    Parameters params;
 
 //    public StaticController(LogManager logger) {
 //        params = Parameters.initializeParameters();
@@ -24,18 +26,35 @@ public class StaticController extends Controller {
 
     @Override
     public void reportStatistics(Population<ANN> population) {
-        for (int i = 0; i < population.size(); i++) {
-            ANN ann = population.get(i);
-            Log log = new Log(
-                    ann.getID(),
-                    cell.params.getInt("generation"),
-                    G.evaluations,
-                    ann.getFitness(),
-                    i,
-                    ann.getNumberOfNeurons(),
-                    ann.toDot());
-            cell.logger.pushLog(log);
+//        for (int i = 0; i < population.size(); i++) {
+//            ANN ann = population.get(i);
+//            Log log = new Log(
+//                    ann.getID(),
+//                    cell.params.getInt("generation"),
+//                    G.evaluations,
+//                    ann.getFitness(),
+//                    i,
+//                    ann.getNumberOfNeurons(),
+//                    ann.toDot());
+//            cell.logger.pushLog(log);
+//        }
+        double error = Double.NaN;
+        ANN ann = population.getBestModel();
+        if(xTest != null){
+            Data yHat = ann.epoch(xTest);
+            error = Error.computeError(yTest, yHat);
         }
+
+        Log log = new Log(
+                ann.getID(),
+                cell.params.getInt("generation"),
+                G.evaluations,
+                ann.getFitness(),
+                error,
+                0,
+                ann.getNumberOfNeurons(),
+                ann.toDot());
+        cell.logger.pushLog(log);
         cell.logger.flush();
         cell.params.increment("generation");
     }

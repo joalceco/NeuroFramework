@@ -23,7 +23,5 @@ public class SVRRunner {
         Model svr = svrpCell.getBestModel();
         double error = svrpCell.evaluator.evaluate(svr, x_train, y_train);
         System.out.println(error);
-
-
     }
 }

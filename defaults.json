@@ -61,10 +61,11 @@
   "max_epochs": 1000000,
   "mutation_p": 0.1,
   "weight_mutation_p": 1.0,
-  "crossover_rate": 0.6,
-  "weighting_factor": 0.2,
-  "min_weight": -20.0,
-  "max_weight": 20.0,
+  "crossover_rate": 0.8,
+  "weighting_factor": 0.5,
+  "min_weight": -30.0,
+  "max_weight": 30.0,
   "max_size": 100,
-  "max_tries": 3
+  "max_tries": 3,
+  "error": "mse"
 }

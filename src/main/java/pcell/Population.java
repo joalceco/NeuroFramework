@@ -71,6 +71,7 @@ public class Population<T extends ANN> extends LinkedList<T> {
 
 
     public T getBestModel() {
+        sort(ANN::compareTo);
         return this.get(0);
     }
 

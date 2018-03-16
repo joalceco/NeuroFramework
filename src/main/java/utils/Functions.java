@@ -3,14 +3,21 @@ package utils;
 public class Functions {
 
     public static double sigmoid(double x) {
-        double y;
-        if (x < -10)
-            y = 0;
-        else if (x > 10)
-            y = 1;
-        else
-            y = 1 / (1 + Math.exp(-x));
-        return y;
+        return 1 / (1 + Math.exp(-x));
     }
+
+    public static double relu(double x) {
+        return Math.log(1+Math.exp(x));
+    }
+
+    public static double linear(double x) {
+        return x;
+    }
+
+    public static double tanh(double x) {
+        return (1-Math.exp(-2*x)) / (1+Math.exp(-2*x));
+    }
+
+
 
 }

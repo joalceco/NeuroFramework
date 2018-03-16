@@ -10,7 +10,7 @@ import static org.junit.Assert.assertArrayEquals;
 public class ErrorMeasurementTesting {
 
     DoubleMatrix2D a, b, c, d;
-    MAError eval;
+    Error eval;
 
     @Before
     public void setUp() throws Exception {
@@ -18,7 +18,7 @@ public class ErrorMeasurementTesting {
         b = new DenseDoubleMatrix2D(new double[][]{{0, 1}, {2, 3}});
         c = new DenseDoubleMatrix2D(new double[][]{{1, 2}, {3, 4}});
         d = new DenseDoubleMatrix2D(new double[][]{{2, 1}, {-1, 2}});
-        eval = new MAError();
+        eval = new Error();
     }
 
     @Test
