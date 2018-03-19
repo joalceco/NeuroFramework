@@ -1,4 +1,5 @@
 {
+  "seed":3,
   "population_size": 20,
   "cells_params_default": {
     "ga": {
@@ -42,7 +43,6 @@
       "type": "svr"
     }
   },
-  "error_type": "mae",
   "algorithm": "cellular",
   "ann_type": "guava_ann",
   "problem": "regression",
@@ -52,20 +52,16 @@
   "union": "replace_if_improves",
   "communication": "rotate_best",
   "mutation": "random_mutation",
-  "trainingXPath": "/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/1-OriginalData/trainX.csv",
-  "testXPath": "/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/1-OriginalData/testX.csv",
-  "trainingYPath": "/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/1-OriginalData/trainY.csv",
-  "testYPath": "/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/1-OriginalData/testY.csv",
-  "outputPath": "/home/joalceco/Dropbox/Doctorado/Datasets/20171014-CurveSet3D/4-Analysis/tmp",
   "stagnation": "bias",
   "max_epochs": 1000000,
   "mutation_p": 0.1,
   "weight_mutation_p": 1.0,
   "crossover_rate": 0.8,
   "weighting_factor": 0.5,
-  "min_weight": -30.0,
-  "max_weight": 30.0,
+  "min_weight": -1.0,
+  "max_weight": 1.0,
   "max_size": 100,
   "max_tries": 3,
-  "error": "mse"
+  "batch_percent":0.3,
+  "error": "mae"
 }

@@ -18,6 +18,7 @@ public abstract class ProcessingCell {
     public Evaluator evaluator;
     public Parameters params;
     public LogManager logger = new NoManager(this);
+    public ANN bestModel;
 
     public abstract ProcessingCell fit(Data X, Data Y);
 

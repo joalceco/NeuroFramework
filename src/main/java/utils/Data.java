@@ -97,4 +97,17 @@ public class Data {
     public void toCsv(Path outputFile) {
         toCsv(outputFile.toString());
     }
+
+    public Data applyMask(LinkedHashSet<Integer> mask) {
+//        BiMap<Integer, String> headerMapI = headerMap.inverse();
+        BiMap<Integer, String> indexMapI = indexMap.inverse();
+        HashMap<Integer, String> index = new HashMap<>();
+        for (Integer i: mask) {
+            index.put(i,indexMapI.get(i));
+        }
+        BiMap<String, Integer> indexR = HashBiMap.create(index).inverse();
+        int[] primitiveMask = ArrayUtils.toPrimitive(mask);
+        DoubleMatrix2D d = data.viewSelection(primitiveMask, null);
+        return new Data(headerMap,indexR,d);
+    }
 }

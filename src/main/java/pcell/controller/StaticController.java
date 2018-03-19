@@ -53,7 +53,8 @@ public class StaticController extends Controller {
                 error,
                 0,
                 ann.getNumberOfNeurons(),
-                ann.toDot());
+//                ann.toDot());
+                "");
         cell.logger.pushLog(log);
         cell.logger.flush();
         cell.params.increment("generation");
@@ -61,6 +62,9 @@ public class StaticController extends Controller {
 
     @Override
     public int intParameter(String param) {
+        if(cell.params.containsKey(param)){
+            return cell.params.getInt(param);
+        }
         return G.getIntegerParam(param);
     }
 

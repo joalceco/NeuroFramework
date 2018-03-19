@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class G {
     public static boolean DEBUG = false;
-    public static RandomGen r = new RandomGen(3);
+    public static RandomGen r = new RandomGen(getIntegerParam("seed"));
     public static int evaluations = 0;
     public static int maxEvaluations = 10000;
     public static HashMap<String, Object> params;

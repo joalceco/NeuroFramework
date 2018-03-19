@@ -14,6 +14,7 @@ import utils.Parameters;
 
 public class BasicNeuroPCell extends ProcessingCell {
 
+
     private BasicNeuroPCell() {
         params = Parameters.initializeParameters();
     }
@@ -97,6 +98,10 @@ public class BasicNeuroPCell extends ProcessingCell {
                 System.out.println(gen);
             algorithm.apply(population, evaluator);
             control.reportStatistics(population);
+            if(gen%50==0){
+                evaluator.prepareNextBatch();
+                algorithm.apply(population, evaluator);
+            }
         }
         logger.flush();
         return this;
@@ -140,6 +145,9 @@ public class BasicNeuroPCell extends ProcessingCell {
 
     @Override
     public Model getBestModel() {
+        if(bestModel != null){
+            return bestModel;
+        }
         population.sort(ANN::compareTo);
         return population.get(0);
     }

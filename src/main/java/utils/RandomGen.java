@@ -55,6 +55,10 @@ public class RandomGen extends DoubleMersenneTwister {
 
     }
 
+    public LinkedHashSet<Integer> sample(int sampleSize, int max) {
+        return  sample(sampleSize,0,max);
+    }
+
     public boolean nextBoolean() {
         return nextDouble() < 0.5;
     }

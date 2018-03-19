@@ -210,6 +210,7 @@ public class GuavaANN extends ANN {
                 nodes.add(node);
             }
         }
+        nodes.removeAll(inputs);
 
         if (active) {
             return G.r.selectRandomElement(nodes);
@@ -219,6 +220,7 @@ public class GuavaANN extends ANN {
                 s.add(i);
             }
             s.removeAll(nodes);
+            s.removeAll(inputs);
             return G.r.selectRandomElement(s);
         }
 
@@ -373,7 +375,7 @@ public class GuavaANN extends ANN {
                 output_energy.assign(in_energy, (out, in) -> out + weight * in);
             }
             if (!outputs.contains(hidden_node_id)) {
-                output_energy.assign(element -> Functions.tanh(element));
+                output_energy.assign(element -> Functions.semilinear(element));
             }
             energy.put(hidden_node_id, output_energy);
         }
@@ -474,5 +476,15 @@ public class GuavaANN extends ANN {
     @Override
     public Set<Integer> getNodes() {
         return this.topology.nodes();
+    }
+
+    @Override
+    public boolean connectionExist(int origin, int destiny) {
+        return topology.hasEdgeConnecting(origin,destiny);
+    }
+
+    @Override
+    public double getWeight(int origin, int destiny) {
+        return topology.edgeValue(origin,destiny).get();
     }
 }

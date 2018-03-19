@@ -21,6 +21,12 @@ public class Error extends Evaluator {
         switch (error.toLowerCase()) {
             case "mae":
                 return mae(y_real_data, y_predicted_data);
+            case "m3e":
+                return m3e(y_real_data, y_predicted_data);
+            case "mse100":
+                return m3e(y_real_data, y_predicted_data);
+            case "r2":
+                return r2(y_real_data, y_predicted_data);
             case "mse":
             default:
                 return mse(y_real_data, y_predicted_data);
@@ -39,6 +45,31 @@ public class Error extends Evaluator {
         return y_real_data.zSum() / y_real_data.size();
     }
 
+    public static double mse100(DoubleMatrix2D y_real_data, DoubleMatrix2D y_predicted_data) {
+        y_real_data = y_real_data.copy();
+        y_real_data.assign(y_predicted_data, (x, y) -> Math.pow(x*100 - y*100, 2));
+        return y_real_data.zSum() / y_real_data.size();
+    }
+
+    public static double m3e(DoubleMatrix2D y_real_data, DoubleMatrix2D y_predicted_data) {
+        y_real_data = y_real_data.copy();
+        y_real_data.assign(y_predicted_data, (x, y) -> Math.abs(Math.pow(x - y, 3)));
+        return y_real_data.zSum() / y_real_data.size();
+    }
+
+    public static double r2(DoubleMatrix2D y_real_data, DoubleMatrix2D y_predicted_data) {
+        //SSres
+        DoubleMatrix2D SSres = y_real_data.copy();
+        SSres.assign(y_predicted_data, (x, y) -> Math.pow(x - y, 2));
+        //SStot
+        double mean = y_real_data.zSum() / y_real_data.size();
+        DoubleMatrix2D SStot = y_real_data.copy();
+        DoubleMatrix2D y2 = SStot.like().assign(mean);
+        SStot.assign(y2, (x, y) -> Math.pow(x - y, 2));
+
+        return (SSres.zSum()-SStot.zSum());
+    }
+
     @Override
     public double evaluate(Model model) {
 //        G.evaluations++;
@@ -51,6 +82,11 @@ public class Error extends Evaluator {
 //        G.evaluations++;
         Data y_predicted = model.epoch(X);
         return computeError(Y, y_predicted,G.getStringParam("error"));
+    }
+
+    @Override
+    public void prepareNextBatch() {
+
     }
 
 }

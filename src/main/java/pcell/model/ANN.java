@@ -109,4 +109,8 @@ public abstract class ANN extends Model implements Comparable<ANN> {
     public abstract EndpointPair<Integer> selectRandomWeight();
 
     public abstract Set<Integer> getNodes();
+
+    public abstract boolean connectionExist(int origin, int destiny);
+
+    public abstract double getWeight(int origin, int destiny);
 }

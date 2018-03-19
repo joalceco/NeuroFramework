@@ -4,6 +4,7 @@ import pcell.algorithm.Base;
 import pcell.algorithm.operators.*;
 import pcell.controller.StaticController;
 import pcell.evaluator.Error;
+import pcell.evaluator.ErrorBatch;
 import pcell.types.ProcessingCell;
 import pcell.types.neuro.BasicNeuroPCell;
 import utils.G;
@@ -37,12 +38,27 @@ public class PCellFactory {
     public static ProcessingCell buildBestMutator() {
         ProcessingCell pCell = BasicNeuroPCell.buildEmpty();
         pCell.setLogManager(new NoManager(pCell));
-        pCell.setEvaluator(new Error());
+        pCell.setEvaluator(new ErrorBatch());
         pCell.setAlgorithm(new Base<>(pCell));
         pCell.setAlgorithm(new SortPopulation(
                 pCell.algorithm
                 ));
         pCell.setAlgorithm(new MutateFromBest(
+                pCell.algorithm,
+                0.3
+        ));
+        pCell.setController(new StaticController(pCell));
+        return pCell;
+    }
+
+    public static ProcessingCell buildSimulatingAnneling() {
+        ProcessingCell pCell = BasicNeuroPCell.buildEmpty();
+//        pCell.setParam("max_epochs",10);
+        pCell.setParam("population_size",1);
+        pCell.setLogManager(new NoManager(pCell));
+        pCell.setEvaluator(new Error());
+        pCell.setAlgorithm(new Base<>(pCell));
+        pCell.setAlgorithm(new SimulatingAnneling(
                 pCell.algorithm,
                 0.3
         ));

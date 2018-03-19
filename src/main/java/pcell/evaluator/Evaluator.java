@@ -17,6 +17,8 @@ public abstract class Evaluator {
 
     public abstract double evaluate(Model model, Data X, Data Y);
 
+    public abstract void prepareNextBatch();
+
 //    public static Evaluator getErrorType(String errorType) {
 //        switch (errorType.toLowerCase()) {
 //            case "mae":
