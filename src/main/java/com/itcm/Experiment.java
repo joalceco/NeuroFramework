@@ -12,6 +12,7 @@ public class Experiment {
             G.resetR(i);
             G.evaluations=0;
             G.runid++;
+            //netbeans test
             new SARunner(i).main(params);
         }
 
