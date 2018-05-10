@@ -13,6 +13,8 @@ import utils.Functions;
 import utils.G;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class GuavaANN extends ANN {
 
@@ -92,13 +94,37 @@ public class GuavaANN extends ANN {
         return new_node;
     }
 
-    private void addBias(int new_node) {
+    @Override
+    protected void addBias(int new_node) {
         addConnection(-1, new_node);
     }
 
     public boolean isOutput(int neuronID) {
         return outputs.contains(neuronID);
     }
+
+    @Override
+    public Set<Integer> getActiveInputs() {
+        Set<Integer> inputs = getInputs();
+        Set<Integer> activeInputs = inputs.stream()
+                .filter(s -> topology.degree(s) > 0)
+                .collect(Collectors.toSet());
+        return activeInputs;
+    }
+
+    @Override
+    public boolean isActive(int id) {
+        if(!topology.nodes().contains(id)){
+            return false;
+        }
+        return topology.degree(id)>0;
+    }
+
+    @Override
+    public int getNumberOfConnections() {
+        return topology.edges().size();
+    }
+
 
     public boolean isHidden(int neuronID) {
         return topology.nodes().contains(neuronID) & (!inputs.contains(neuronID)) & (!outputs.contains(neuronID));
@@ -173,6 +199,11 @@ public class GuavaANN extends ANN {
         return G.r.selectRandomElement(getHiddenNeurons(false));
     }
 
+    @Override
+    public List<Integer> getHiddenNeurons(){
+        return getHiddenNeurons(true);
+    }
+
     public List<Integer> getHiddenNeurons(boolean active) {
         List<Integer> s = new ArrayList<>();
         for (Integer i :
@@ -234,6 +265,10 @@ public class GuavaANN extends ANN {
                 nodes.add(node);
             }
         }
+        if (nodes.contains(bias_id)) {
+            nodes.remove((Integer)bias_id);
+        }
+//        nodes.remove(bias_id);
         if (active) {
             return G.r.selectRandomElement(nodes);
         } else {
@@ -259,7 +294,8 @@ public class GuavaANN extends ANN {
 
     @Override
     public double getBias(int id) {
-        return 0;
+        return topology.edgeValue(bias_id,id).get();
+//        return 0;
     }
 
     @Override
@@ -274,7 +310,7 @@ public class GuavaANN extends ANN {
 
     @Override
     public void setBias(int id, double bias) {
-
+        addConnection(bias_id, id,bias);
     }
 
     @Override
@@ -310,7 +346,12 @@ public class GuavaANN extends ANN {
                 sb.append(System.lineSeparator());
             }
         }
-        sb.append("{rank = same; 0;}").append(ls);
+        sb.append("{rank = same;");
+        for (int i:inputs) {
+            sb.append(" "+i+";");
+        }
+        sb.append("}").append(ls);
+
         sb.append("}");
         return sb.toString();
     }
@@ -339,6 +380,7 @@ public class GuavaANN extends ANN {
             stringBuilder.append(System.lineSeparator());
         }
         return "GuavaANN {" + System.lineSeparator() +
+                "id=" +id+ System.lineSeparator() +
                 "fitness=" + String.format("%.3f", fitness) + System.lineSeparator() +
                 "edges=" + stringBuilder.toString() +
                 ", inputs=" + inputs +
@@ -394,7 +436,7 @@ public class GuavaANN extends ANN {
     }
 
     @Override
-    public Object clone() {
+    public ANN clone() {
         GuavaANN ann = new GuavaANN();
         ann.maxSize = this.maxSize;
         for (Integer node : this.topology.nodes()) {
@@ -487,4 +529,15 @@ public class GuavaANN extends ANN {
     public double getWeight(int origin, int destiny) {
         return topology.edgeValue(origin,destiny).get();
     }
+
+    @Override
+    public Set<Integer> getInputs() {
+        return inputs;
+    }
+
+    @Override
+    public void addBias(int new_node, double bias) {
+        topology.putEdgeValue(bias_id,new_node,bias);
+    }
+
 }

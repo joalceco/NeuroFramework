@@ -4,7 +4,6 @@ import pcell.algorithm.Base;
 import pcell.algorithm.operators.*;
 import pcell.controller.StaticController;
 import pcell.evaluator.Error;
-import pcell.evaluator.ErrorBatch;
 import pcell.types.ProcessingCell;
 import pcell.types.neuro.BasicNeuroPCell;
 import utils.G;
@@ -19,26 +18,41 @@ public class PCellFactory {
         pCell.setAlgorithm(new Base<>(pCell));
         pCell.setAlgorithm(new Differential<>(
                 pCell.algorithm,
-                G.paramD("crossover_rate"),
-                G.paramD("weighting_factor")
+                G.getDoubleParam("crossover_rate"),
+                G.getDoubleParam("weighting_factor")
         ));
 //        pCell.setAlgorithm(new Genetic(
 //                pCell.algorithm,
 //                0.8
 //        ));
         pCell.setAlgorithm(new RandomEliteTopologyMutation(
-                pCell.algorithm,
-                0.3,
-                0.2
+                pCell.algorithm
         ));
         pCell.setController(new StaticController(pCell));
         return pCell;
     }
 
+    public static ProcessingCell buildBasicGenetic() {
+        ProcessingCell pCell = BasicNeuroPCell.buildEmpty();
+        pCell.setLogManager(new NoManager(pCell));
+        pCell.setEvaluator(new Error());
+        pCell.setAlgorithm(new Base<>(pCell));
+        pCell.setAlgorithm(new Genetic<>(
+                pCell.algorithm,
+                G.getDoubleParam("crossover_rate")
+        ));
+        pCell.setAlgorithm(new RandomEliteTopologyMutation(
+                pCell.algorithm
+        ));
+        pCell.setController(new StaticController(pCell));
+        return pCell;
+    }
+
+
     public static ProcessingCell buildBestMutator() {
         ProcessingCell pCell = BasicNeuroPCell.buildEmpty();
         pCell.setLogManager(new NoManager(pCell));
-        pCell.setEvaluator(new ErrorBatch());
+        pCell.setEvaluator(new Error());
         pCell.setAlgorithm(new Base<>(pCell));
         pCell.setAlgorithm(new SortPopulation(
                 pCell.algorithm
@@ -53,18 +67,15 @@ public class PCellFactory {
 
     public static ProcessingCell buildSimulatingAnneling() {
         ProcessingCell pCell = BasicNeuroPCell.buildEmpty();
-//        pCell.setParam("max_epochs",10);
         pCell.setParam("population_size",1);
         pCell.setLogManager(new NoManager(pCell));
         pCell.setEvaluator(new Error());
         pCell.setAlgorithm(new Base<>(pCell));
-        pCell.setAlgorithm(new SimulatingAnneling(
-                pCell.algorithm,
-                0.3
-        ));
+        pCell.setAlgorithm(new SimulatingAnnealing(pCell.algorithm));
         pCell.setController(new StaticController(pCell));
         return pCell;
     }
+
 
 //    public static ProcessingCell buildPCell(String name_id, Parameters params) {
 //        Parameters localParams = params.copy();

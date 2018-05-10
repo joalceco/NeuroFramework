@@ -27,12 +27,12 @@ public class BasicNeuroPCell extends ProcessingCell {
 //        pCell.algorithm = new Base<>();
 //        pCell.algorithm = new Differential<>(
 //                pCell.algorithm,
-//                G.paramD("crossover_rate"),
-//                G.paramD("weighting_factor")
+//                G.getDoubleParam("crossover_rate"),
+//                G.getDoubleParam("weighting_factor")
 //        );
 //        pCell.algorithm = new WeightMutation<>(
 //                pCell.algorithm,
-//                G.paramD("weight_mutation_p")
+//                G.getDoubleParam("weight_mutation_p")
 //        );
 //        pCell.control = new StaticController(new NoManager());
 //        return pCell;
@@ -48,7 +48,7 @@ public class BasicNeuroPCell extends ProcessingCell {
 //        );
 //        pCell.algorithm = new WeightMutation<>(
 //                pCell.algorithm,
-//                G.paramD("weight_mutation_p")
+//                G.getDoubleParam("weight_mutation_p")
 //        );
 //        pCell.control = new StaticController(new NoManager());
 //        return pCell;
@@ -88,6 +88,28 @@ public class BasicNeuroPCell extends ProcessingCell {
         // TODO: 8/11/17 Agregar validaciones
         evaluator.prepareData(X, Y);
         buildPopulation(X, Y);
+        evaluatePopulation(population, evaluator);
+        control.reportStatistics(population);
+//        System.out.println(population.toString());
+        int gen=0;
+        while (control.live()) {
+            gen++;
+            if(gen%1000==0)
+                System.out.println(gen);
+            algorithm.apply(population, evaluator);
+            control.reportStatistics(population);
+            if(gen%50==0){
+                evaluator.prepareNextBatch();
+                algorithm.apply(population, evaluator);
+            }
+        }
+        logger.flush();
+        return this;
+    }
+
+    public BasicNeuroPCell fit() {
+        // TODO: 8/11/17 Agregar validaciones
+
         evaluatePopulation(population, evaluator);
         control.reportStatistics(population);
 //        System.out.println(population.toString());

@@ -4,6 +4,7 @@ import cern.colt.list.tint.IntArrayList;
 import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import com.google.common.graph.EndpointPair;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -44,6 +45,8 @@ public abstract class ANN extends Model implements Comparable<ANN> {
 
     public abstract int selectRandomDisableNeuron();
 
+    public abstract List<Integer> getHiddenNeurons();
+
     public abstract int selectRandomHiddenNeuron(boolean active);
 
     public abstract int selectRandomUpperNeuron(int id, boolean active);
@@ -78,7 +81,7 @@ public abstract class ANN extends Model implements Comparable<ANN> {
 
     public abstract int getNumberOfNeurons();
 
-    public abstract Object clone();
+    public abstract ANN clone();
 
     public abstract ANN cloneEmpty();
 
@@ -113,4 +116,18 @@ public abstract class ANN extends Model implements Comparable<ANN> {
     public abstract boolean connectionExist(int origin, int destiny);
 
     public abstract double getWeight(int origin, int destiny);
+
+    public abstract Set<Integer> getInputs();
+
+    public abstract void addBias(int new_node, double bias);
+
+    protected abstract void addBias(int new_node);
+
+    public abstract boolean isOutput(int origin);
+
+    public abstract Set<Integer> getActiveInputs();
+
+    public abstract boolean isActive(int destiny);
+
+    public abstract int getNumberOfConnections();
 }

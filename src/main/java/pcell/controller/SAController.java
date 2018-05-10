@@ -8,7 +8,7 @@ import utils.Data;
 import utils.G;
 import utils.Log;
 
-public class StaticController extends Controller {
+public class SAController extends Controller {
 
     //    Parameters params;
 
@@ -17,7 +17,7 @@ public class StaticController extends Controller {
 //        this.history = logger;
 //    }
 
-    public StaticController(ProcessingCell cell) {
+    public SAController(ProcessingCell cell) {
 //        this.params = cell.params;
         this.cell = cell;
         cell.params.setParam("generation", 0);
@@ -72,6 +72,7 @@ public class StaticController extends Controller {
 
     @Override
     public boolean live() {
+
         if (G.evaluations > G.getMaxEvaluations()) {
             return false;
         }

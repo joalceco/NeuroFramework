@@ -1,7 +1,6 @@
 package com.itcm;
 
 import pcell.PCellFactory;
-import pcell.algorithm.operators.Genetic;
 import pcell.evaluator.Error;
 import pcell.types.ProcessingCell;
 import utils.Data;
@@ -13,11 +12,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class GeneticRunner {
+public class SARunner {
 
     int runID=0;
 
-    public GeneticRunner(int runID){
+    public SARunner(int runID){
         this.runID=runID;
     }
 
@@ -43,7 +42,7 @@ public class GeneticRunner {
         Data yTrain = ProblemReader.read_csv(dir.resolve("trainY.csv"),true);
 
 //        ProcessingCell pCell = PCellFactory.buildBasicDifferential();
-        ProcessingCell pCell = PCellFactory.buildBasicGenetic();
+        ProcessingCell pCell = PCellFactory.buildSimulatingAnneling();
 //        ProcessingCell pCell = SVRPCell.buildBasicSVR();
 
         Path logPath = Paths.get("results", "tmp", "dif_"+G.runid+".csv");
@@ -51,7 +50,7 @@ public class GeneticRunner {
         pCell.setLogManager(new CsvManager(pCell, logPath));
         pCell.control.setTestData(xTrain,yTrain,xTest,yTest);
 //        int epochs= 20000;
-        int epochs= 500000;
+        int epochs= 62517;
         String out = "" + G.getDoubleParam("batch_percent")+" "+epochs;
         out+= " "+G.getStringParam("error");
         out+= " "+G.getDoubleParam("cooling_rate");

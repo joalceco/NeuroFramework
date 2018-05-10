@@ -14,13 +14,18 @@ public class RandomEliteTopologyMutation<T extends ANN> extends OperatorDecorato
     Algorithm<T> algorithm;
     int generation;
 
-    private RandomEliteTopologyMutation() {
+    public RandomEliteTopologyMutation(Algorithm<T> algorithm) {
+        this.algorithm = algorithm;
+        params = new Parameters();
+        generation=0;
+        params.setParam("topology_mutation_rate", G.getDoubleParam("topology_mutation_rate"));
+        params.setParam("elite_size", G.getDoubleParam("elite_size"));
     }
 
     public RandomEliteTopologyMutation(Algorithm<T> algorithm, double prob, double eliteSize) {
         this.algorithm = algorithm;
         params = new Parameters();
-generation=0;
+        generation=0;
         params.setParam("topology_mutation_rate", prob);
         params.setParam("elite_size", eliteSize);
     }

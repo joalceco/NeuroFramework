@@ -23,6 +23,9 @@ public abstract class Algorithm<T extends ANN> {
         params.increment("epoch");
         G.evaluations++;
         double fitness = evaluator.evaluate(ann);
+        fitness = (fitness*1) +
+                (fitness*0.005) * ann.getNumberOfNeurons() +
+                (fitness*0.005) * ann.getNumberOfConnections();
         ann.setFitness(fitness);
         return fitness;
     }

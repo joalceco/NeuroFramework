@@ -51,6 +51,11 @@ public class SVRPCell extends ProcessingCell {
     }
 
     @Override
+    public ProcessingCell fit() {
+        return null;
+    }
+
+    @Override
     public Model getBestModel() {
         return model;
     }

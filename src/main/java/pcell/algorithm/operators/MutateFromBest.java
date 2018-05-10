@@ -70,10 +70,14 @@ public class MutateFromBest<T extends ANN> extends OperatorDecorator<T> {
     }
 
     private T mutateTopology(T t) {
+        int maxtries = 0;
         int origin, newNeuron;
         do {
             origin = t.selectRandomActiveOrInputNeuron();
             newNeuron = t.selectRandomUpperNeuron(origin, false);
+            if(maxtries++>5){
+                return mutateWeigth(t);
+            }
         }
         while (newNeuron == -1);
         int destiny = t.selectRandomUpperNeuron(newNeuron, true);

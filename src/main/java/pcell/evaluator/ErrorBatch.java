@@ -14,7 +14,7 @@ public class ErrorBatch extends Error {
 
 
     public ErrorBatch() {
-        batchPercent = G.paramD("batch_percent");
+        batchPercent = G.getDoubleParam("batch_percent");
     }
 
     public void prepareData(Data x, Data y) {

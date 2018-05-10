@@ -21,6 +21,7 @@ public abstract class ProcessingCell {
     public ANN bestModel;
 
     public abstract ProcessingCell fit(Data X, Data Y);
+    public abstract ProcessingCell fit();
 
     public Data predict(Data X) {
         return getBestModel().epoch(X);

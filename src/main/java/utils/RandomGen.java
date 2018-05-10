@@ -3,8 +3,10 @@ package utils;
 import cern.colt.list.tint.IntArrayList;
 import cern.jet.random.tdouble.engine.DoubleMersenneTwister;
 
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by joalceco on 9/06/17.
@@ -68,8 +70,8 @@ public class RandomGen extends DoubleMersenneTwister {
     }
 
     public int selectRandomElement(List<Integer> array) {
-        if (array.size() == 0) return -1;
         if (array == null) return -1;
+        if (array.size() == 0) return -1;
         return array.get(nextInt(0, array.size()));
     }
 
@@ -78,8 +80,19 @@ public class RandomGen extends DoubleMersenneTwister {
     }
 
     public double nextWeight() {
-        Double min = (Double) G.paramD("min_weight");
-        Double max = (Double) G.paramD("max_weight");
+        Double min = (Double) G.getDoubleParam("min_weight");
+        Double max = (Double) G.getDoubleParam("max_weight");
         return nextDouble(min, max);
+    }
+
+    public int selectRandomElement(Set<Integer> set) {
+        if(set == null) return  -1;
+        if(set.isEmpty()) return -1;
+        Iterator<Integer> iterator = set.iterator();
+        int dump = G.r.nextInt(set.size());
+        while(dump-- > 0){
+            iterator.next();
+        }
+        return iterator.next();
     }
 }

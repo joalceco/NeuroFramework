@@ -74,7 +74,8 @@ public class Error extends Evaluator {
     public double evaluate(Model model) {
 //        G.evaluations++;
         Data y_predicted = model.epoch(X);
-        return computeError(Y, y_predicted, G.getStringParam("error"));
+        double error = computeError(Y, y_predicted, G.getStringParam("error"));
+        return error;
     }
 
     @Override

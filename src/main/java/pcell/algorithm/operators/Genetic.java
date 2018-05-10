@@ -7,10 +7,7 @@ import pcell.model.ANN;
 import utils.G;
 import utils.Parameters;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 public class Genetic<T extends ANN> extends OperatorDecorator<T> {
 
@@ -45,13 +42,19 @@ public class Genetic<T extends ANN> extends OperatorDecorator<T> {
             if (G.r.nextDouble() < params.getDouble("crossover_rate")) {
                 HashSet<Integer> parents = selectParents(pop);
                 Iterator<Integer> it = parents.iterator();
-                T original = pop.get(i);
-                T candidate = (T) original.cloneEmpty();
-                ;
                 T daddy = pop.get(it.next());
                 T mommy = pop.get(it.next());
-                candidate = onePointCrossover(candidate, daddy, mommy);
-                WeightMutation.mutate(candidate);
+                T candidate = (T) daddy.clone();
+                candidate = conventionalGNPCrossover(candidate, daddy, mommy);
+                if(G.r.nextDouble() < G.getDoubleParam("weight_mutation_prob")){
+                    WeightMutation.mutate(candidate);
+                }
+                if(G.r.nextDouble() < G.getDoubleParam("add_mutation_prob")){
+                    AddConection.mutate(candidate);
+                }
+                if(G.r.nextDouble() < G.getDoubleParam("add_node_prob")){
+                    AddNeuron.mutate(candidate);
+                }
                 evaluate(candidate, evaluator);
                 pop.add(candidate);
             }
@@ -71,46 +74,62 @@ public class Genetic<T extends ANN> extends OperatorDecorator<T> {
     }
 
     /**
-     * One Point Crossover calculation
+     * conventional GNP Crossover
      * The crossover edges are based of solution @param a.
+     * Paper: "Comparing some graph crossover in genetic network programming", doi: 10.1109/SICE.2002.1195369
      *
      * @param candidate clone of original solution
      * @param a         first parent
      * @param b         second parent
      * @return candidate solution for convenience
      */
-    private T onePointCrossover(T candidate, T a, T b) {
-        ArrayList<Integer> usedNeurons = new ArrayList();
-        usedNeurons.add(a.bias_id);
-        for (Integer node : a.getNodes()) {
-            if (!usedNeurons.contains(node)) {
-                usedNeurons.add(node);
-                if (G.r.nextDouble() < params.getDouble("crossover_rate")) {
+    private T conventionalGNPCrossover(T candidate, T a, T b) {
+//        List<Integer> hiddenNeurons = b.getHiddenNeurons();
+        int origin = G.r.selectRandomElement(b.getActiveInputs());
+        int destiny;
+        double u = G.r.nextDouble();
+        do {
+            Set<Integer> destiniesSet = b.getDestiniesSet(origin);
+            destiny = G.r.selectRandomElement(destiniesSet);
+            if(!candidate.isOutput(destiny)) {
+                if (candidate.isActive(destiny)) {
+                    double bias = crossoverWeigth(a.getBias(destiny), b.getBias(destiny), u);
+                    candidate.addBias(destiny, bias);
+                } else {
+                    candidate.addBias(destiny, b.getBias(destiny));
+                }
+            }
+            double P2 = b.getWeight(origin, destiny);
+            if(a.connectionExist(origin,destiny)){
+                double P1 = a.getWeight(origin, destiny);
 
-                    for (int destiny : a.getDestiniesSet(node)) {
-                        candidate.addConnection(node, destiny, a.weight(node, destiny));
-                        candidate.addConnection(candidate.bias_id, node, a.weight(candidate.bias_id, node));
-                    }
-                } else if (b.getNodes().contains(node)) {
-                    for (int destiny : b.getDestiniesSet(node)) {
-                        candidate.addConnection(node, destiny, b.weight(node, destiny));
-                        candidate.addConnection(candidate.bias_id, node, b.weight(candidate.bias_id, node));
-                    }
-                }
+                double H = crossoverWeigth(P1, P2, u);
+
+                candidate.addConnection(origin, destiny, H);
+
+            }else{
+                candidate.addConnection(origin,destiny,P2);
             }
-        }
-        for (Integer node : b.getNodes()) {
-            if (!usedNeurons.contains(node)) {
-                usedNeurons.add(node);
-                if (G.r.nextDouble() < params.getDouble("crossover_rate")) {
-                    for (int destiny : b.getDestiniesSet(node)) {
-                        candidate.addConnection(node, destiny, b.weight(node, destiny));
-                        candidate.addConnection(candidate.bias_id, node, b.weight(candidate.bias_id, node));
-                    }
-                }
-            }
-        }
+            origin = destiny;
+        } while (!candidate.isOutput(destiny));
         return candidate;
+    }
+
+    private double crossoverWeigth(double P1, double P2, double u) {
+        double nc = 2;
+        double b = 0;
+        double exponent = 1 / (nc + 1);
+        if (u <= 0.5) {
+            b = Math.pow(2 * u, exponent);
+        } else {
+            b = Math.pow(1 / (2 * (1 - u)), exponent);
+        }
+        if (G.r.nextBoolean()) {
+            return 0.5 * ((P1 + P2) - b * (P2 - P1));
+        } else {
+            return 0.5 * ((P1 + P2) + b * (P2 - P1));
+        }
+
     }
 
 }

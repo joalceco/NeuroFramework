@@ -24,9 +24,14 @@ public class G {
     public static int evaluations = 0;
     public static int maxEvaluations = 10000;
     public static HashMap<String, Object> params;
+    public static int runid = 0;
 
     public static HashMap<String, Object> getParams() {
         return params;
+    }
+
+    public static void resetR(int seed){
+        r = new RandomGen(seed);
     }
 
     public static int getMaxEvaluations() {
@@ -55,6 +60,14 @@ public class G {
         return 0;
     }
 
+    public static Integer getIntegerParam(String key,String key2) {
+        paramsNotNull();
+        if (params.containsKey(key)) {
+            return ((Double) getMapParam(key).get(key2)).intValue();
+        }
+        return 0;
+    }
+
     public static Object getObjectParam(String key) {
         paramsNotNull();
         if (params.containsKey(key)) {
@@ -71,10 +84,18 @@ public class G {
         return null;
     }
 
-    public static Double paramD(String key) {
+    public static Double getDoubleParam(String key) {
         paramsNotNull();
         if (params.containsKey(key)) {
             return (Double) params.get(key);
+        }
+        return 0.0;
+    }
+
+    public static Double getDoubleParam(String key,String key2) {
+        paramsNotNull();
+        if (params.containsKey(key)) {
+            return (Double) getMapParam(key).get(key2);
         }
         return 0.0;
     }
