@@ -3,31 +3,27 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="0.0" y="0.0">utils.Parameters</node>
-    <node x="359.0" y="684.0">pcell.algorithm.Algorithm</node>
-    <node x="0.0" y="390.0">utils.Data</node>
-    <node x="418.0" y="203.0">pcell.controller.StaticController</node>
-    <node x="0.0" y="684.0">pcell.evaluator.Evaluator</node>
-    <node x="676.0" y="390.0">pcell.types.ProcessingCell</node>
-    <node x="352.0" y="390.0">pcell.Population</node>
-    <node x="418.0" y="0.0">pcell.controller.Controller</node>
+    <node x="557.0" y="450.0">pcell.evaluator.Evaluator</node>
+    <node x="275.0" y="0.0">pcell.algorithm.Algorithm</node>
+    <node x="0.0" y="450.0">pcell.Population</node>
+    <node x="0.0" y="0.0">pcell.types.ProcessingUnit</node>
+    <node x="253.0" y="450.0">pcell.controller.Controller</node>
+    <node x="275.0" y="191.0">pcell.algorithm.operators.Operator</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="pcell.controller.StaticController" target="pcell.controller.Controller">
-      <point x="0.0" y="-64.5" />
-      <point x="0.0" y="76.5" />
+    <edge source="pcell.algorithm.operators.Operator" target="pcell.algorithm.Algorithm">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="70.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.5000000000000001" x="849.9999999999998" y="598.9999999999999" />
-  <SelectedNodes>
-    <node>pcell.controller.StaticController</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="0.6000000000000001" x="1046.5" y="725.8333333333333" />
+  <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
     <Category>Methods</Category>
   </Categories>
   <SCOPE>All</SCOPE>
-  <VISIBILITY>private</VISIBILITY>
+  <VISIBILITY>public</VISIBILITY>
 </Diagram>
 

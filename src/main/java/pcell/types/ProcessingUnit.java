@@ -11,7 +11,9 @@ import utils.Parameters;
 import utils.loggers.LogManager;
 import utils.loggers.NoManager;
 
-public abstract class ProcessingCell {
+import java.nio.file.Path;
+
+public abstract class ProcessingUnit {
     public Population<ANN> population;
     public Algorithm<ANN> algorithm;
     public Controller control;
@@ -20,8 +22,8 @@ public abstract class ProcessingCell {
     public LogManager logger = new NoManager(this);
     public ANN bestModel;
 
-    public abstract ProcessingCell fit(Data X, Data Y);
-    public abstract ProcessingCell fit();
+    public abstract ProcessingUnit fit(Data X, Data Y);
+    public abstract ProcessingUnit fit();
 
     public Data predict(Data X) {
         return getBestModel().epoch(X);
@@ -47,7 +49,10 @@ public abstract class ProcessingCell {
         this.algorithm = algorithm;
     }
 
+
     public void setController(Controller control) {
         this.control = control;
     }
+
+    public abstract void saveAs(Path models);
 }

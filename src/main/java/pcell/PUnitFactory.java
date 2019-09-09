@@ -4,15 +4,15 @@ import pcell.algorithm.Base;
 import pcell.algorithm.operators.*;
 import pcell.controller.StaticController;
 import pcell.evaluator.Error;
-import pcell.types.ProcessingCell;
-import pcell.types.neuro.BasicNeuroPCell;
+import pcell.types.ProcessingUnit;
+import pcell.types.neuro.BasicNeuroPUnit;
 import utils.G;
 import utils.loggers.NoManager;
 
-public class PCellFactory {
+public class PUnitFactory {
 
-    public static ProcessingCell buildBasicDifferential() {
-        ProcessingCell pCell = BasicNeuroPCell.buildEmpty();
+    public static ProcessingUnit buildBasicDifferential() {
+        ProcessingUnit pCell = BasicNeuroPUnit.buildEmpty();
         pCell.setLogManager(new NoManager(pCell));
         pCell.setEvaluator(new Error());
         pCell.setAlgorithm(new Base<>(pCell));
@@ -32,8 +32,8 @@ public class PCellFactory {
         return pCell;
     }
 
-    public static ProcessingCell buildBasicGenetic() {
-        ProcessingCell pCell = BasicNeuroPCell.buildEmpty();
+    public static ProcessingUnit buildBasicGenetic() {
+        ProcessingUnit pCell = BasicNeuroPUnit.buildEmpty();
         pCell.setLogManager(new NoManager(pCell));
         pCell.setEvaluator(new Error());
         pCell.setAlgorithm(new Base<>(pCell));
@@ -49,8 +49,8 @@ public class PCellFactory {
     }
 
 
-    public static ProcessingCell buildBestMutator() {
-        ProcessingCell pCell = BasicNeuroPCell.buildEmpty();
+    public static ProcessingUnit buildBestMutator() {
+        ProcessingUnit pCell = BasicNeuroPUnit.buildEmpty();
         pCell.setLogManager(new NoManager(pCell));
         pCell.setEvaluator(new Error());
         pCell.setAlgorithm(new Base<>(pCell));
@@ -65,8 +65,8 @@ public class PCellFactory {
         return pCell;
     }
 
-    public static ProcessingCell buildSimulatingAnneling() {
-        ProcessingCell pCell = BasicNeuroPCell.buildEmpty();
+    public static ProcessingUnit buildSimulatingAnneling() {
+        ProcessingUnit pCell = BasicNeuroPUnit.buildEmpty();
         pCell.setParam("population_size",1);
         pCell.setLogManager(new NoManager(pCell));
         pCell.setEvaluator(new Error());

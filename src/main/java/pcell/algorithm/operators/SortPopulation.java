@@ -5,7 +5,7 @@ import pcell.algorithm.Algorithm;
 import pcell.evaluator.Evaluator;
 import pcell.model.ANN;
 
-public class SortPopulation<T extends ANN> extends OperatorDecorator<T> {
+public class SortPopulation<T extends ANN> extends Operator<T> {
 
     private Algorithm<T> algorithm;
 //    double prob;

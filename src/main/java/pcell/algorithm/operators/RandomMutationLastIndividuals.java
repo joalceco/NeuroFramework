@@ -5,7 +5,7 @@ import pcell.algorithm.Algorithm;
 import pcell.evaluator.Evaluator;
 import pcell.model.ANN;
 
-public class RandomMutationLastIndividuals<T extends ANN> extends OperatorDecorator<T> {
+public class RandomMutationLastIndividuals<T extends ANN> extends Operator<T> {
 
     Algorithm<T> algorithm;
     double prob;

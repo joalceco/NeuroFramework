@@ -1,7 +1,9 @@
 package pcell.model;
 
-import cern.colt.list.tint.IntArrayList;
-import cern.colt.matrix.tdouble.DoubleMatrix2D;
+//import cern.colt.list.tint.IntArrayList;
+//import cern.colt.matrix.tdouble.DoubleMatrix2D;
+import cern.colt.list.IntArrayList;
+import cern.colt.matrix.DoubleMatrix2D;
 import com.google.common.graph.EndpointPair;
 
 import java.util.List;
@@ -36,6 +38,8 @@ public abstract class ANN extends Model implements Comparable<ANN> {
     public abstract void addConnection();
 
     public abstract void addConnection(int originID, int destinyID);
+    
+    public abstract void removeConnection(int originID, int destinyID);
 
     public abstract void addConnection(int originID, int destinyID, double weight);
 
@@ -54,6 +58,11 @@ public abstract class ANN extends Model implements Comparable<ANN> {
     public abstract int selectRandomLowerNeuron(int id, boolean active);
 
     public abstract int selectRandomActiveLowerNeurons(int id, boolean active);
+   
+    
+    public abstract Set<Integer> getPredecessorNeuronsOf(int id);
+    
+    public abstract Set<Integer> getSucessorNeuronsOf(int id);
 
 //    public abstract boolean isInput();
 

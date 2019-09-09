@@ -2,7 +2,7 @@ package pcell.controller;
 
 import pcell.Population;
 import pcell.model.ANN;
-import pcell.types.ProcessingCell;
+import pcell.types.ProcessingUnit;
 import utils.Data;
 
 public abstract class Controller {
@@ -12,7 +12,7 @@ public abstract class Controller {
     protected Data yTrain;
     protected Data xTrain;
     //    LogManager history;
-    ProcessingCell cell;
+    ProcessingUnit cell;
 
     public Controller() {
     }

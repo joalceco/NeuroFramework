@@ -1,10 +1,10 @@
 package utils.loggers;
 
-import pcell.types.ProcessingCell;
+import pcell.types.ProcessingUnit;
 import utils.Log;
 
 public abstract class LogManager {
-    ProcessingCell cell;
+    ProcessingUnit cell;
 
     abstract public void pushLog(Log log);
 

@@ -7,7 +7,7 @@ import pcell.model.ANN;
 import utils.G;
 import utils.Parameters;
 
-public class MutateFromBest<T extends ANN> extends OperatorDecorator<T> {
+public class MutateFromBest<T extends ANN> extends Operator<T> {
 
     private Algorithm<T> algorithm;
     private double selectRandomProb = 0.25;

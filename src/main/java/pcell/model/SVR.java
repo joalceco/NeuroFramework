@@ -1,6 +1,7 @@
 package pcell.model;
 
-import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
+import cern.colt.matrix.impl.DenseDoubleMatrix2D;
+//import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
 import libsvm.*;
 import utils.Data;
 

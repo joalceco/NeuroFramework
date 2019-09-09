@@ -6,14 +6,14 @@ import pcell.algorithm.operators.Differential;
 import pcell.algorithm.operators.Genetic;
 import pcell.algorithm.operators.RandomMutation;
 import pcell.model.ANN;
-import pcell.types.ProcessingCell;
+import pcell.types.ProcessingUnit;
 import utils.Parameters;
 
 import java.util.ArrayList;
 
 public class SimpleOperatorFactory<T extends ANN> {
 
-    public Algorithm<T> buildAlgorithm(ArrayList<String> operatorNames, ProcessingCell cell) {
+    public Algorithm<T> buildAlgorithm(ArrayList<String> operatorNames, ProcessingUnit cell) {
         if (operatorNames == null) {
             return null;
         }
@@ -24,7 +24,7 @@ public class SimpleOperatorFactory<T extends ANN> {
         return base;
     }
 
-    public Algorithm<T> buildBase(ProcessingCell cell) {
+    public Algorithm<T> buildBase(ProcessingUnit cell) {
 //        Evaluator evaluator = Evaluator.getErrorType(cell.params.getString("error_type"));
         Algorithm<T> algorithm = new Base(cell);
         return algorithm;

@@ -44,13 +44,13 @@
     }
   },
   "sa":{
-    "alpha": 0.99,
-    "maximum_difference": 200.0,
-    "minimum_difference": 0.001,
+    "alpha": 0.98,
+    "maximum_difference": 18.882,
+    "minimum_difference": 0.0042,
     "acceptance_probability_high": 0.95,
     "acceptance_probability_low": 0.05,
-    "metropolis_length_initial": 10,
-    "metropolis_length_final": 100
+    "metropolis_length_initial": 2,
+    "metropolis_length_final": 200
 
   },
   "algorithm": "cellular",
@@ -63,23 +63,23 @@
   "communication": "rotate_best",
   "mutation": "random_mutation",
   "stagnation": "bias",
-  "max_epochs": 1000000,
+  "max_epochs": 5000000,
   "mutation_p": 0.1,
-  "weight_mutation_p": 1.0,
-  "crossover_rate": 0.9,
   "weighting_factor": 0.2,
-  "topology_mutation_rate":0.70,
-  "elite_size":0.2,
   "min_weight": -1.0,
   "max_weight": 1.0,
   "max_size": 200,
   "max_tries": 3,
   "batch_percent":0.5,
   "error": "mse",
-  "topology_mutation_prob":0.5,
   "cooling_rate":0.025,
   "temperature":2000000,
-  "weight_mutation_prob":0.3,
+  "topology_mutation_prob":0.5,
+  "elite_size":0.2,
+  "topology_mutation_rate":0.70,
+  "topology_mutation_frequency":100,
+  "crossover_rate": 0.9,
+  "weight_mutation_prob":0.5,
   "add_node_prob":0.3,
-  "add_mutation_prob":0.3
+  "add_mutation_prob":0.5
 }

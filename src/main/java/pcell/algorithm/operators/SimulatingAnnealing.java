@@ -6,7 +6,7 @@ import pcell.evaluator.Evaluator;
 import pcell.model.ANN;
 import utils.G;
 
-public class SimulatingAnnealing<T extends ANN> extends OperatorDecorator<T> {
+public class SimulatingAnnealing<T extends ANN> extends Operator<T> {
 
     private Algorithm<T> algorithm;
     //    private double selectRandomProb = 0.25;
@@ -32,8 +32,6 @@ public class SimulatingAnnealing<T extends ANN> extends OperatorDecorator<T> {
     private double metropolis_length;
 
 //    T best;
-
-
     public SimulatingAnnealing(Algorithm<T> algorithm) {
         this.algorithm = algorithm;
         cell = algorithm.cell;
@@ -64,6 +62,7 @@ public class SimulatingAnnealing<T extends ANN> extends OperatorDecorator<T> {
         temperature_final = -minimum_difference / Math.log(acceptance_probability_low);
         temperature = temperature_initial;
         metropolis_length = metropolis_length_initial;
+        repetitions = (int) metropolis_length;
         n = ((Math.log(temperature_final) - Math.log(temperature_initial)) / Math.log(alpha));
         beta = Math.exp((Math.log(metropolis_length_final) - Math.log(metropolis_length_initial)) / n);
 //        coolSystem();
@@ -77,36 +76,33 @@ public class SimulatingAnnealing<T extends ANN> extends OperatorDecorator<T> {
     @Override
     public Population<T> apply(Population<T> pop, Evaluator evaluator) {
         pop = algorithm.apply(pop, evaluator);
-        T currentSolution = pop.getBestModel();
-        T newSolution = mutate(currentSolution);
-        double currentEnergy = currentSolution.getFitness();
-        double neighbourEnergy = evaluate(newSolution, evaluator);
+        for (int i = 0; i < repetitions; i++) {
+            T currentSolution = pop.getBestModel();
+            T newSolution = mutate(currentSolution);
+            double currentEnergy = currentSolution.getFitness();
+            double neighbourEnergy = evaluate(newSolution, evaluator);
 //        // Decide if we should accept the neighbour
-        if (acceptanceProbability(currentEnergy, neighbourEnergy, temperature) > G.r.nextDouble()) {
-            pop.replaceSolution(0, newSolution);
-            currentSolution = newSolution;
-        }
+            if (acceptanceProbability(currentEnergy, neighbourEnergy, temperature) > G.r.nextDouble()) {
+                pop.replaceSolution(0, newSolution);
+                currentSolution = newSolution;
+            }
 //
-        // Keep track of the best solution found
-        if (cell.bestModel == null) {
-            cell.bestModel = currentSolution.clone();
-        } else if (currentSolution.getFitness() < cell.bestModel.getFitness()) {
-            cell.bestModel = currentSolution.clone();
+            // Keep track of the best solution found
+            if (cell.bestModel == null) {
+                cell.bestModel = currentSolution.clone();
+            } else if (currentSolution.getFitness() < cell.bestModel.getFitness()) {
+                cell.bestModel = currentSolution.clone();
+            }
         }
-
         // Cool system
         coolSystem();
         return pop;
     }
 
     private void coolSystem() {
-        if (repetitions == 0) {
-            temperature *= alpha;
-            metropolis_length *= beta;
-            repetitions = (int) metropolis_length;
-        } else {
-            repetitions--;
-        }
+        temperature *= alpha;
+        metropolis_length *= beta;
+        repetitions = (int) metropolis_length;
 
     }
 
@@ -134,6 +130,16 @@ public class SimulatingAnnealing<T extends ANN> extends OperatorDecorator<T> {
     }
 
     private T mutateTopology(T t) {
+        switch (G.r.nextInt(2)) {
+            case 0:
+                return addNeuron(t);
+            case 1:
+                return removeWeigth(t);
+        }
+        return t;
+    }
+
+    private T addNeuron(T t) {
         int origin, newNeuron;
         int maxTries = 0;
         do {
@@ -142,8 +148,7 @@ public class SimulatingAnnealing<T extends ANN> extends OperatorDecorator<T> {
             if (maxTries++ > 5) {
                 return mutateWeight(t);
             }
-        }
-        while (newNeuron == -1);
+        } while (newNeuron == -1);
         int destiny = t.selectRandomUpperNeuron(newNeuron, true);
         t.addConnection(origin, newNeuron);
         t.addConnection(t.bias_id, newNeuron);
@@ -151,5 +156,23 @@ public class SimulatingAnnealing<T extends ANN> extends OperatorDecorator<T> {
         return t;
     }
 
+    private T removeWeigth(T t) {
+        int origin, newNeuron;
+        int maxTries = 0;
+        for (int i = 0; i < 5; i++) {
+            origin = t.selectRandomActiveOrInputNeuron();
+            newNeuron = t.selectRandomUpperNeuron(origin, true);
+            if(t.connectionExist(origin, newNeuron)){
+                if(t.getPredecessorNeuronsOf(newNeuron).size()>2){
+                    if(t.getSucessorNeuronsOf(origin).size()>2){
+                      t.removeConnection(origin, newNeuron);
+                      break;
+                    }
+                }
+            }
+
+        }
+        return t;
+    }
 
 }

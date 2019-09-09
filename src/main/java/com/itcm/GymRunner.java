@@ -1,17 +1,13 @@
 package com.itcm;
 
-import pcell.PCellFactory;
 import pcell.algorithm.Base;
 import pcell.algorithm.operators.Differential;
 import pcell.algorithm.operators.RandomEliteTopologyMutation;
 import pcell.controller.StaticController;
-import pcell.evaluator.Error;
 import pcell.evaluator.Gym;
-import pcell.types.ProcessingCell;
-import pcell.types.neuro.BasicNeuroPCell;
-import utils.Data;
+import pcell.types.ProcessingUnit;
+import pcell.types.neuro.BasicNeuroPUnit;
 import utils.G;
-import utils.ProblemReader;
 import utils.loggers.CsvManager;
 import utils.loggers.NoManager;
 
@@ -22,7 +18,7 @@ import java.nio.file.Paths;
 public class GymRunner {
 
     public static void main(String[] args) throws IOException {
-        ProcessingCell pCell = BasicNeuroPCell.buildEmpty();
+        ProcessingUnit pCell = BasicNeuroPUnit.buildEmpty();
         pCell.setLogManager(new NoManager(pCell));
         pCell.setEvaluator(new Gym("CartPole-v0"));
         pCell.setAlgorithm(new Base<>(pCell));

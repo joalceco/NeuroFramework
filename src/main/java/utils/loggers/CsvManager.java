@@ -2,7 +2,7 @@ package utils.loggers;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import pcell.types.ProcessingCell;
+import pcell.types.ProcessingUnit;
 import utils.Log;
 
 import java.io.File;
@@ -24,7 +24,7 @@ public class CsvManager extends LogManager {
 //        logs = new LinkedList<>();
 //    }
 
-    public CsvManager(ProcessingCell cell, Path logPath) {
+    public CsvManager(ProcessingUnit cell, Path logPath) {
         this.cell = cell;
         this.file = logPath.toFile();
         this.file.getParentFile().mkdirs();

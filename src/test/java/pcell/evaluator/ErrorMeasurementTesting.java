@@ -1,7 +1,9 @@
 package pcell.evaluator;
 
-import cern.colt.matrix.tdouble.DoubleMatrix2D;
-import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
+import cern.colt.matrix.DoubleMatrix2D;
+import cern.colt.matrix.impl.DenseDoubleMatrix2D;
+//import cern.colt.matrix.tdouble.DoubleMatrix2D;
+//import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
 import org.junit.Before;
 import org.junit.Test;
 

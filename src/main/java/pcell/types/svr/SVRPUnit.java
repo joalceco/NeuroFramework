@@ -6,28 +6,30 @@ import pcell.evaluator.Evaluator;
 import pcell.evaluator.Error;
 import pcell.model.Model;
 import pcell.model.SVR;
-import pcell.types.ProcessingCell;
+import pcell.types.ProcessingUnit;
 import utils.Data;
 import utils.Parameters;
 
-public class SVRPCell extends ProcessingCell {
+import java.nio.file.Path;
+
+public class SVRPUnit extends ProcessingUnit {
 
     SVR model;
 
-    private SVRPCell() {
+    private SVRPUnit() {
         model = new SVR();
         model.buildParameters();
     }
 
-    public static SVRPCell buildBasicSVR() {
-        SVRPCell svr = new SVRPCell();
+    public static SVRPUnit buildBasicSVR() {
+        SVRPUnit svr = new SVRPUnit();
         svr.evaluator = new Error();
         svr.model.buildParameters();
         return svr;
     }
 
-    public static ProcessingCell build(Algorithm algorithm, Evaluator evaluator, Controller controller, Parameters params) {
-        SVRPCell svr = new SVRPCell();
+    public static ProcessingUnit build(Algorithm algorithm, Evaluator evaluator, Controller controller, Parameters params) {
+        SVRPUnit svr = new SVRPUnit();
 //        buildParameters
         svr.evaluator = evaluator;
         svr.algorithm = algorithm;
@@ -37,7 +39,7 @@ public class SVRPCell extends ProcessingCell {
     }
 
     @Override
-    public ProcessingCell fit(Data X, Data Y) {
+    public ProcessingUnit fit(Data X, Data Y) {
         evaluator.prepareData(X, Y);
         model.buildProblem(X, Y);
         model.fit();
@@ -51,12 +53,17 @@ public class SVRPCell extends ProcessingCell {
     }
 
     @Override
-    public ProcessingCell fit() {
+    public ProcessingUnit fit() {
         return null;
     }
 
     @Override
     public Model getBestModel() {
         return model;
+    }
+
+    @Override
+    public void saveAs(Path models) {
+
     }
 }

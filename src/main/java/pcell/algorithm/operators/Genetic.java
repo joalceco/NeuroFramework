@@ -9,7 +9,7 @@ import utils.Parameters;
 
 import java.util.*;
 
-public class Genetic<T extends ANN> extends OperatorDecorator<T> {
+public class Genetic<T extends ANN> extends Operator<T> {
 
     Algorithm<T> algorithm;
 
@@ -63,7 +63,6 @@ public class Genetic<T extends ANN> extends OperatorDecorator<T> {
         while (pop.size() > pop_size) {
             pop.removeLast();
         }
-
         return pop;
     }
 

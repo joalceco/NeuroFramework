@@ -9,7 +9,7 @@ import utils.G;
 
 import java.util.LinkedHashSet;
 
-public class WeightMutation<T extends ANN> extends OperatorDecorator<T> {
+public class WeightMutation<T extends ANN> extends Operator<T> {
 
     Algorithm<T> algorithm;
     double prob;

@@ -1,7 +1,9 @@
 package utils;
 
-import cern.colt.list.tint.IntArrayList;
-import cern.jet.random.tdouble.engine.DoubleMersenneTwister;
+//import cern.colt.list.tint.IntArrayList;
+//import cern.jet.random.tdouble.engine.DoubleMersenneTwister;
+import cern.colt.list.IntArrayList;
+import org.apache.commons.math3.random.MersenneTwister;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -11,7 +13,7 @@ import java.util.Set;
 /**
  * Created by joalceco on 9/06/17.
  */
-public class RandomGen extends DoubleMersenneTwister {
+public class RandomGen extends MersenneTwister {
 
     public RandomGen(int seed) {
         super(seed);

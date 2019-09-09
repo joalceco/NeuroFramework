@@ -4,11 +4,8 @@ import pcell.Population;
 import pcell.algorithm.Algorithm;
 import pcell.evaluator.Evaluator;
 import pcell.model.ANN;
-import utils.G;
 
-import java.util.LinkedHashSet;
-
-public class AddNeuron<T extends ANN> extends OperatorDecorator<T> {
+public class AddNeuron<T extends ANN> extends Operator<T> {
 
     Algorithm<T> algorithm;
     double prob;

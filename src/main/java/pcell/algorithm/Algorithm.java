@@ -3,14 +3,14 @@ package pcell.algorithm;
 import pcell.Population;
 import pcell.evaluator.Evaluator;
 import pcell.model.ANN;
-import pcell.types.ProcessingCell;
+import pcell.types.ProcessingUnit;
 import utils.G;
 import utils.Parameters;
 
 public abstract class Algorithm<T extends ANN> {
 
     public Parameters params;
-    public ProcessingCell cell;
+    public ProcessingUnit cell;
     String pseudoCode = "No Code";
 
     public String getPseudoCode() {

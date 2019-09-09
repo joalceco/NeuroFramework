@@ -9,7 +9,7 @@ import utils.Parameters;
 
 import java.util.LinkedHashSet;
 
-public class RandomMutation<T extends ANN> extends OperatorDecorator<T> {
+public class RandomMutation<T extends ANN> extends Operator<T> {
 
     Algorithm<T> algorithm;
 

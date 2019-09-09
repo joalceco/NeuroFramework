@@ -9,15 +9,17 @@ import utils.Parameters;
 
 import java.util.LinkedHashSet;
 
-public class RandomEliteTopologyMutation<T extends ANN> extends OperatorDecorator<T> {
+public class RandomEliteTopologyMutation<T extends ANN> extends Operator<T> {
 
     Algorithm<T> algorithm;
-    int generation;
+    int random_mutation_countdown;
 
     public RandomEliteTopologyMutation(Algorithm<T> algorithm) {
         this.algorithm = algorithm;
         params = new Parameters();
-        generation=0;
+
+        random_mutation_countdown = G.getIntegerParam("topology_mutation_frequency");
+        params.setParam("topology_mutation_frequency", G.getIntegerParam("topology_mutation_frequency"));
         params.setParam("topology_mutation_rate", G.getDoubleParam("topology_mutation_rate"));
         params.setParam("elite_size", G.getDoubleParam("elite_size"));
     }
@@ -25,13 +27,14 @@ public class RandomEliteTopologyMutation<T extends ANN> extends OperatorDecorato
     public RandomEliteTopologyMutation(Algorithm<T> algorithm, double prob, double eliteSize) {
         this.algorithm = algorithm;
         params = new Parameters();
-        generation=0;
+        random_mutation_countdown = G.getIntegerParam("topology_mutation_frequency");
         params.setParam("topology_mutation_rate", prob);
         params.setParam("elite_size", eliteSize);
     }
 
     public RandomEliteTopologyMutation(Algorithm<T> algorithm, Parameters parameters) {
         this.algorithm = algorithm;
+        random_mutation_countdown = G.getIntegerParam("topology_mutation_frequency");
         params = parameters;
     }
 
@@ -45,7 +48,7 @@ public class RandomEliteTopologyMutation<T extends ANN> extends OperatorDecorato
     public Population<T> apply(Population<T> pop, Evaluator evaluator) {
         pop = algorithm.apply(pop, evaluator);
         pop.sort(ANN::compareTo);
-        if(generation%1000==0) {
+        if(random_mutation_countdown <= 0) {
             LinkedHashSet<Integer> sample = G.r.sample(
                     (int) Math.ceil(pop.size() * params.getDouble("topology_mutation_rate")),
                     (int) Math.ceil(pop.size() * params.getDouble("elite_size")),
@@ -54,8 +57,10 @@ public class RandomEliteTopologyMutation<T extends ANN> extends OperatorDecorato
                 mutate(sol, pop);
                 evaluate(pop.get(sol), evaluator);
             }
+            random_mutation_countdown = params.getInt("topology_mutation_frequency");
+        }else{
+            random_mutation_countdown--;
         }
-        generation++;
         return pop;
     }
 

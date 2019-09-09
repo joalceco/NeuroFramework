@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-public class Differential<T extends ANN> extends OperatorDecorator<T> {
+public class Differential<T extends ANN> extends Operator<T> {
 
     private Algorithm<T> algorithm;
 

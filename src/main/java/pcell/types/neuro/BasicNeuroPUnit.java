@@ -7,15 +7,19 @@ import pcell.evaluator.Evaluator;
 import pcell.model.ANN;
 import pcell.model.ANNFactory;
 import pcell.model.Model;
-import pcell.types.ProcessingCell;
+import pcell.types.ProcessingUnit;
 import utils.Data;
 import utils.G;
 import utils.Parameters;
 
-public class BasicNeuroPCell extends ProcessingCell {
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.nio.file.Path;
+
+public class BasicNeuroPUnit extends ProcessingUnit {
 
 
-    private BasicNeuroPCell() {
+    private BasicNeuroPUnit() {
         params = Parameters.initializeParameters();
     }
 
@@ -66,11 +70,11 @@ public class BasicNeuroPCell extends ProcessingCell {
 //        return pCell;
 //    }
 
-    public static ProcessingCell build(Algorithm algorithm,
+    public static ProcessingUnit build(Algorithm algorithm,
                                        Evaluator evaluator,
                                        Controller controller,
                                        Parameters params) {
-        BasicNeuroPCell pCell = new BasicNeuroPCell();
+        BasicNeuroPUnit pCell = new BasicNeuroPUnit();
         pCell.evaluator = evaluator;
         pCell.algorithm = algorithm;
         pCell.control = controller;
@@ -78,13 +82,13 @@ public class BasicNeuroPCell extends ProcessingCell {
         return pCell;
     }
 
-    public static ProcessingCell buildEmpty() {
-        BasicNeuroPCell pCell = new BasicNeuroPCell();
+    public static ProcessingUnit buildEmpty() {
+        BasicNeuroPUnit pCell = new BasicNeuroPUnit();
         return pCell;
     }
 
     @Override
-    public BasicNeuroPCell fit(Data X, Data Y) {
+    public BasicNeuroPUnit fit(Data X, Data Y) {
         // TODO: 8/11/17 Agregar validaciones
         evaluator.prepareData(X, Y);
         buildPopulation(X, Y);
@@ -95,7 +99,8 @@ public class BasicNeuroPCell extends ProcessingCell {
         while (control.live()) {
             gen++;
             if(gen%1000==0)
-                System.out.println(gen);
+//                System.out.println();
+                System.out.println(G.runid+", "+gen);
             algorithm.apply(population, evaluator);
             control.reportStatistics(population);
             if(gen%50==0){
@@ -107,7 +112,7 @@ public class BasicNeuroPCell extends ProcessingCell {
         return this;
     }
 
-    public BasicNeuroPCell fit() {
+    public BasicNeuroPUnit fit() {
         // TODO: 8/11/17 Agregar validaciones
 
         evaluatePopulation(population, evaluator);
@@ -172,5 +177,19 @@ public class BasicNeuroPCell extends ProcessingCell {
         }
         population.sort(ANN::compareTo);
         return population.get(0);
+    }
+
+    @Override
+    public void saveAs(Path file) {
+        ANN bestModel = (ANN)getBestModel();
+        String dot = bestModel.toDot();
+        try {
+            PrintWriter out = new PrintWriter(file.toAbsolutePath().toString());
+            out.println(dot);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 }

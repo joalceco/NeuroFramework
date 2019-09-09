@@ -1,6 +1,5 @@
 package pcell.algorithm.operators;
 
-import com.google.common.graph.EndpointPair;
 import pcell.Population;
 import pcell.algorithm.Algorithm;
 import pcell.evaluator.Evaluator;
@@ -9,7 +8,7 @@ import utils.G;
 
 import java.util.LinkedHashSet;
 
-public class AddConection<T extends ANN> extends OperatorDecorator<T> {
+public class AddConection<T extends ANN> extends Operator<T> {
 
     Algorithm<T> algorithm;
     double prob;

@@ -1,7 +1,9 @@
 package utils;
 
-import cern.colt.matrix.tdouble.DoubleMatrix2D;
-import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
+import cern.colt.matrix.DoubleMatrix2D;
+//import cern.colt.matrix.tdouble.DoubleMatrix2D;
+//import cern.colt.matrix.tdouble.impl.DenseDoubleMatrix2D;
+import cern.colt.matrix.impl.DenseDoubleMatrix2D;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
@@ -35,6 +37,8 @@ public class Data {
         }
         this.data = data;
     }
+
+
 
     public static Data sumData(Map<String, Data> results) {
         // TODO: 22/11/17 There has to be a better way!!!
@@ -83,9 +87,10 @@ public class Data {
             }
             printer.println();
             ImmutableList<double[]> il = ImmutableList.copyOf(data.toArray());
+            BiMap<Integer, String> index = indexMap.inverse();
             for (int i = 0; i < il.size(); i++) {
                 List<Double> list = Doubles.asList(il.get(i));
-                printer.print(i);
+                printer.print(index.get(i));
                 printer.printRecord(list);
             }
             printer.close();
@@ -109,5 +114,13 @@ public class Data {
         int[] primitiveMask = ArrayUtils.toPrimitive(mask);
         DoubleMatrix2D d = data.viewSelection(primitiveMask, null);
         return new Data(headerMap,indexR,d);
+    }
+
+    public HashBiMap<String,Integer> index() {
+        return HashBiMap.create(indexMap);
+    }
+
+    public void setIndex(HashBiMap<String,Integer> index){
+        indexMap = index;
     }
 }

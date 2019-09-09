@@ -1,14 +1,20 @@
 package pcell.evaluator;
 
-import cern.colt.matrix.tdouble.DoubleMatrix2D;
+import cern.colt.matrix.DoubleMatrix2D;
+//import cern.colt.matrix.tdouble.DoubleMatrix2D;
 import pcell.model.Model;
 import utils.Data;
 import utils.G;
 
 public class Error extends Evaluator {
 
+    public static double best= Double.POSITIVE_INFINITY;
+    public static double worst= 0;
+
     public Error() {
 //        this.cell = cell;
+
+
     }
 
     public static double computeError(Data y_real, Data y_predicted) {
@@ -18,19 +24,28 @@ public class Error extends Evaluator {
     public static double computeError(Data y_real, Data y_predicted, String error) {
         DoubleMatrix2D y_real_data = y_real.getRawMatrix();
         DoubleMatrix2D y_predicted_data = y_predicted.getRawMatrix();
+        double errorS = Double.POSITIVE_INFINITY;
         switch (error.toLowerCase()) {
             case "mae":
-                return mae(y_real_data, y_predicted_data);
+                errorS = mae(y_real_data, y_predicted_data);
+                break;
             case "m3e":
-                return m3e(y_real_data, y_predicted_data);
+                errorS = m3e(y_real_data, y_predicted_data);
+                break;
             case "mse100":
-                return m3e(y_real_data, y_predicted_data);
+                errorS = m3e(y_real_data, y_predicted_data);
+                break;
             case "r2":
-                return r2(y_real_data, y_predicted_data);
+                errorS = r2(y_real_data, y_predicted_data);
+                break;
             case "mse":
             default:
-                return mse(y_real_data, y_predicted_data);
+                errorS = mse(y_real_data, y_predicted_data);
+                break;
         }
+        best = (errorS<best)? errorS:best;
+        worst = (errorS>worst)? errorS:worst;
+        return errorS;
     }
 
     public static double mae(DoubleMatrix2D y_real_data, DoubleMatrix2D y_predicted_data) {

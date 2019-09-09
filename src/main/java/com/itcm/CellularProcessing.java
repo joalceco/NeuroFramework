@@ -1,6 +1,6 @@
 package com.itcm;
 
-import pcell.types.ProcessingCell;
+import pcell.types.ProcessingUnit;
 import utils.Data;
 
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class CellularProcessing {
 
-    private HashMap<String, ProcessingCell> cells;
+    private HashMap<String, ProcessingUnit> cells;
     private HashMap<String, Double> probabilities = new HashMap<>();
 
     private CellularProcessing() {
@@ -45,7 +45,7 @@ public class CellularProcessing {
         return null;
     }
 
-    public void addPCell(String name, ProcessingCell cell) {
+    public void addPCell(String name, ProcessingUnit cell) {
         cells.put(name, cell);
     }
 

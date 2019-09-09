@@ -12,8 +12,13 @@ import com.google.gson.stream.JsonReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author joceco
@@ -30,6 +35,11 @@ public class G {
         return params;
     }
 
+    public static void reset(int seed){
+        resetR(seed);
+        evaluations=0;
+
+    }
     public static void resetR(int seed){
         r = new RandomGen(seed);
     }
@@ -54,9 +64,13 @@ public class G {
 
     public static Integer getIntegerParam(String key) {
         paramsNotNull();
-        if (params.containsKey(key)) {
-            return ((Double) params.get(key)).intValue();
-        }
+        try{
+            if (params.containsKey(key)) {
+                return ((Double) params.get(key)).intValue();
+        }}catch (ClassCastException e){
+            if (params.containsKey(key)) {
+                return ((Integer) params.get(key)).intValue();
+        }}
         return 0;
     }
 
@@ -102,11 +116,30 @@ public class G {
 
     private static void paramsNotNull() {
         if (params == null) {
+//            try {
+//                URL url = G.class.getResource("../../../defaults.json");
+//                File route = new File(url.getFile());
+//                route = route.getParentFile()
+//                        .getParentFile()
+//                        .getParentFile()
+//                        .getParentFile();
+//                System.out.println(route.getAbsolutePath());
+//                Path path = Paths.get(route.getAbsolutePath(), "defaults.json");
+//                System.out.println(path);
+//                System.out.println(path.toFile());
+//                getDefaultsFromFile(path.toFile());
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+
+//            TODO: Me canse de intentarlo, la ruta relativa desde python es diferente a la de Java, por mientras usare una ruta absoluta
+            File file = new File("C:\\Users\\joalc\\Dropbox\\Doctorado\\Programas\\cellular-processing-neuroevolution\\defaults.json");
             try {
-                getDefaultsFromFile(new File("defaults.json"));
+                getDefaultsFromFile(file);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+
         }
     }
 

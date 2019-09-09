@@ -1,11 +1,11 @@
 package utils.loggers;
 
-import pcell.types.ProcessingCell;
+import pcell.types.ProcessingUnit;
 import utils.Log;
 
 public class NoManager extends LogManager {
 
-    public NoManager(ProcessingCell cell) {
+    public NoManager(ProcessingUnit cell) {
         this.cell = cell;
     }
 

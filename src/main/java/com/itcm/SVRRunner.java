@@ -1,7 +1,7 @@
 package com.itcm;
 
 import pcell.model.Model;
-import pcell.types.svr.SVRPCell;
+import pcell.types.svr.SVRPUnit;
 import utils.Data;
 import utils.ProblemReader;
 
@@ -15,7 +15,7 @@ public class SVRRunner {
         //Dame datos de y
         Data y = ProblemReader.getY("/home/joalceco/Dropbox/Doctorado/Datasets/20171001-ILKatritzky2002b/3-Uploaded Data/20171010/testY.csv");
         //Dame un BasicNeuroPCell
-        SVRPCell svrpCell = SVRPCell.buildBasicSVR();
+        SVRPUnit svrpCell = SVRPUnit.buildBasicSVR();
         svrpCell.fit(x, y);
         Data x_train = ProblemReader.getX("/home/joalceco/Dropbox/Doctorado/Datasets/20171001-ILKatritzky2002b/3-Uploaded Data/20171010/trainX.csv");
         Data y_train = ProblemReader.getY("/home/joalceco/Dropbox/Doctorado/Datasets/20171001-ILKatritzky2002b/3-Uploaded Data/20171010/trainY.csv");

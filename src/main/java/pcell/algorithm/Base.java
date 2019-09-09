@@ -4,7 +4,7 @@ package pcell.algorithm;
 import pcell.Population;
 import pcell.evaluator.Evaluator;
 import pcell.model.ANN;
-import pcell.types.ProcessingCell;
+import pcell.types.ProcessingUnit;
 import utils.Parameters;
 
 public class Base<T extends ANN> extends Algorithm<T> {
@@ -14,7 +14,7 @@ public class Base<T extends ANN> extends Algorithm<T> {
         pseudoCode = "Base";
     }
 
-    public Base(ProcessingCell cell) {
+    public Base(ProcessingUnit cell) {
         this.cell = cell;
         params = cell.params;
         pseudoCode = "Base";
