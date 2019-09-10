@@ -6,9 +6,14 @@ public class Functions {
         return 1 / (1 + Math.exp(-x));
     }
 
-    public static double relu(double x) {
+    public static double softplus(double x) {
         return Math.log(1+Math.exp(x));
     }
+
+    public static double relu(double x) {
+        return Math.max(0,x);
+    }
+
 
     public static double linear(double x) {
         return x;
