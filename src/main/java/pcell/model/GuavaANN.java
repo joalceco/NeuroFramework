@@ -484,7 +484,7 @@ public class GuavaANN extends ANN {
                 output_energy.assign(in_energy, (out, in) -> out + weight * in);
             }
             if (!outputs.contains(hidden_node_id)) {
-                output_energy.assign(element -> Functions.semilinear(element));
+                output_energy.assign(element -> Functions.relu(element));
             }
             energy.put(hidden_node_id, output_energy);
         }
